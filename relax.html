@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>INFJ 放松空间</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Georgia',serif;
+  background:#08080f;color:#e8dcc8;
+  height:100vh;overflow:hidden;cursor:default;
+  user-select:none;
+}
+
+/* 动态渐变背景 */
+.bg{
+  position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;
+  background:linear-gradient(135deg,#08080f 0%,#0f1123 40%,#1a0f2e 70%,#08080f 100%);
+  background-size:400% 400%;
+  animation:bgShift 20s ease infinite;
+}
+@keyframes bgShift{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* 光晕 */
+.glow{
+  position:fixed;z-index:1;border-radius:50%;filter:blur(80px);opacity:0.15;
+  animation:float 12s ease-in-out infinite;
+}
+.glow1{width:500px;height:500px;background:#4a3f8a;top:-10%;left:-10%}
+.glow2{width:400px;height:400px;background:#8a5a3f;bottom:-10%;right:-10%;animation-delay:-6s}
+.glow3{width:300px;height:300px;background:#3f6a8a;top:50%;left:60%;animation-delay:-3s}
+@keyframes float{
+  0%,100%{transform:translate(0,0)}
+  33%{transform:translate(30px,-30px)}
+  66%{transform:translate(-20px,20px)}
+}
+
+/* 星星 */
+.stars{position:fixed;top:0;left:0;right:0;bottom:0;z-index:2;pointer-events:none}
+.star{
+  position:absolute;background:#fff;border-radius:50%;
+  animation:twinkle 4s ease-in-out infinite alternate;
+}
+@keyframes twinkle{0%{opacity:0.1;transform:scale(0.8)}100%{opacity:0.9;transform:scale(1.2)}}
+
+/* 流星 */
+.meteor{
+  position:fixed;z-index:2;width:2px;height:80px;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(255,255,255,0.8),transparent);
+  animation:meteorFall 6s linear infinite;opacity:0;
+}
+@keyframes meteorFall{
+  0%{transform:translate(0,0) rotate(-45deg);opacity:0}
+  5%{opacity:1}
+  15%{opacity:0;transform:translate(-300px,300px) rotate(-45deg)}
+  100%{opacity:0}
+}
+
+/* 水波涟漪 */
+.ripple{
+  position:fixed;z-index:5;pointer-events:none;
+  border:1px solid rgba(232,220,200,0.4);
+  border-radius:50%;
+  animation:rippleOut 1.5s ease-out forwards;
+}
+@keyframes rippleOut{
+  0%{width:0;height:0;opacity:0.8}
+  100%{width:300px;height:300px;opacity:0;margin-left:-150px;margin-top:-150px}
+}
+
+/* 主内容 */
+.content{
+  position:relative;z-index:10;height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:36px;
+}
+
+/* 治愈文案 */
+.quote{
+  font-size:1.5rem;text-align:center;max-width:480px;
+  line-height:2;letter-spacing:2px;
+  opacity:0;animation:fadeUp 2.5s ease forwards 0.5s;
+  text-shadow:0 0 30px rgba(232,220,200,0.15);
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.quote-divider{
+  width:40px;height:1px;background:rgba(232,220,200,0.3);
+  margin:0 auto;margin-top:16px;
+}
+
+/* 按钮 */
+.btn{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  color:#e8dcc8;padding:12px 28px;border-radius:30px;
+  cursor:pointer;font-size:0.95rem;letter-spacing:1px;
+  transition:all 0.5s ease;backdrop-filter:blur(10px);
+}
+.btn:hover{
+  background:rgba(255,255,255,0.1);
+  border-color:rgba(232,220,200,0.3);
+  box-shadow:0 0 25px rgba(232,220,200,0.08);
+  transform:translateY(-2px);
+}
+.btn.active{
+  background:rgba(232,220,200,0.1);
+  border-color:rgba(232,220,200,0.4);
+  box-shadow:0 0 40px rgba(232,220,200,0.1);
+}
+</style>
+</head>
+<body>
+
+<style>
+/* 颂钵 */
+.bowl-wrap{
+  opacity:0;animation:fadeUp 2s ease forwards 1.8s;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.bowl{
+  width:80px;height:80px;border-radius:50%;cursor:pointer;
+  background:radial-gradient(circle at 35% 35%,#c9a96e,#6b5a3e 70%,#3a2f20);
+  box-shadow:0 0 0 rgba(201,169,110,0);
+  transition:box-shadow 0.3s;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;
+}
+.bowl:hover{box-shadow:0 0 40px rgba(201,169,110,0.25)}
+.bowl.ring{animation:bowlRing 1.5s ease-out}
+@keyframes bowlRing{
+  0%{box-shadow:0 0 0 0 rgba(201,169,110,0.5)}
+  100%{box-shadow:0 0 0 80px rgba(201,169,110,0)}
+}
+.bowl-label{font-size:0.7rem;opacity:0.4;letter-spacing:1px}
+
+/* 释放烦恼 */
+.release-wrap{
+  opacity:0;animation:fadeUp 2s ease forwards 2.2s;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+}
+.release-input{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:20px;padding:10px 20px;
+  color:#e8dcc8;font-size:0.9rem;width:280px;
+  outline:none;font-family:'Georgia',serif;
+  letter-spacing:1px;text-align:center;
+  transition:all 0.4s;
+}
+.release-input::placeholder{color:rgba(232,220,200,0.3)}
+.release-input:focus{
+  border-color:rgba(232,220,200,0.3);
+  box-shadow:0 0 20px rgba(232,220,200,0.06);
+}
+.release-btn{
+  background:none;border:1px solid rgba(255,255,255,0.1);
+  color:rgba(232,220,200,0.5);padding:8px 24px;border-radius:20px;
+  cursor:pointer;font-size:0.8rem;letter-spacing:2px;
+  transition:all 0.4s;
+}
+.release-btn:hover{
+  color:#e8dcc8;border-color:rgba(232,220,200,0.3);
+}
+
+/* 粒子消散 */
+.particle{
+  position:fixed;z-index:20;pointer-events:none;
+  color:#e8dcc8;font-size:0.85rem;
+  opacity:1;
+  animation:particleFly 2.5s ease-out forwards;
+}
+@keyframes particleFly{
+  0%{opacity:1;transform:translate(0,0) scale(1)}
+  100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0.2)}
+}
+
+/* 音量 */
+.vol-wrap{
+  display:flex;align-items:center;gap:10px;
+  opacity:0;animation:fadeUp 2s ease forwards 1.5s;
+}
+input[type=range]{
+  -webkit-appearance:none;width:140px;height:3px;
+  background:rgba(255,255,255,0.1);border-radius:2px;outline:none;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:12px;height:12px;
+  background:#e8dcc8;border-radius:50%;cursor:pointer;
+  box-shadow:0 0 10px rgba(232,220,200,0.3);
+}
+
+/* 底部提示 */
+.hint{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  font-size:0.65rem;opacity:0;letter-spacing:2px;
+  color:rgba(232,220,200,0.2);
+  animation:fadeUp 2s ease forwards 3s;
+  z-index:10;
+}
+</style>
+
+<div class="bg"></div>
+<div class="glow glow1"></div>
+<div class="glow glow2"></div>
+<div class="glow glow3"></div>
+<div class="stars" id="stars"></div>
+<div class="meteor" style="top:5%;left:70%;animation-delay:0s"></div>
+<div class="meteor" style="top:15%;left:40%;animation-delay:3s"></div>
+<div class="meteor" style="top:8%;left:55%;animation-delay:7s"></div>
+
+<div class="content">
+  <!-- 治愈文案 -->
+  <div class="quote" id="quote"></div>
+
+  <!-- 颂钵 -->
+  <div class="bowl-wrap">
+    <div class="bowl" id="bowl">🔔</div>
+    <div class="bowl-label">轻触颂钵</div>
+  </div>
+
+  <!-- 音乐按钮 -->
+  <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp 2s ease forwards 1.5s">
+    <button class="btn" data-src="vem_click-rain-sound-188158.mp3">🌧️ 雨声</button>
+    <button class="btn" data-src="22.mp3">🌙 晚安 Lo-Fi</button>
+    <button class="btn" data-src="lofi.mp3">🎵 Lo-Fi</button>
+  </div>
+
+  <!-- 音量 -->
+  <div class="vol-wrap">
+    <span style="font-size:0.7rem;opacity:0.4">🔈</span>
+    <input type="range" id="vol" min="0" max="1" step="0.05" value="0.5">
+    <span style="font-size:0.7rem;opacity:0.4">🔊</span>
+  </div>
+
+  <!-- 释放烦恼 -->
+  <div class="release-wrap">
+    <input class="release-input" id="releaseInput" type="text" placeholder="写下你想放下的事..." maxlength="50">
+    <button class="release-btn" id="releaseBtn">✦ 释 放 ✦</button>
+  </div>
+</div>
+
+<div class="hint">轻触任意处，泛起涟漪</div>
+
+<script>
+// 星星
+const starsEl=document.getElementById('stars');
+for(let i=0;i<120;i++){
+  const s=document.createElement('div');s.className='star';
+  s.style.left=Math.random()*100+'%';
+  s.style.top=Math.random()*100+'%';
+  s.style.animationDelay=Math.random()*4+'s';
+  const size=Math.random()*2+0.5;
+  s.style.width=s.style.height=size+'px';
+  starsEl.appendChild(s);
+}
+
+// 治愈文案
+const quotes=[
+  "你已经做得很好了，\n允许自己休息一会儿。",
+  "世界很大，但此刻，\n你只需要照顾好自己。",
+  "不必急着找到答案，\n有些花需要更长的时间才会开。",
+  "你的敏感是一种天赋，\n而不是负担。",
+  "深呼吸，\n这一刻只属于你。",
+  "月亮也有看不见的一面，\n但它依然完整。",
+  "慢慢来，\n比较快。",
+  "你不需要被所有人理解，\n你只需要被自己接纳。",
+  "此刻的安静，\n是你给自己最好的礼物。",
+  "不必向任何人解释你的疲惫，\n休息本身就是答案。"
+];
+const q=quotes[Math.floor(Math.random()*quotes.length)];
+document.getElementById('quote').innerHTML=q.replace('\n','<br><div class="quote-divider"></div>');
+
+// ===== 水波涟漪 =====
+document.addEventListener('click',function(e){
+  if(e.target.closest('.btn')||e.target.closest('.bowl')||e.target.closest('.release-btn')||e.target.closest('.release-input')||e.target.closest('input[type=range]'))return;
+  const r=document.createElement('div');
+  r.className='ripple';
+  r.style.left=e.clientX+'px';
+  r.style.top=e.clientY+'px';
+  document.body.appendChild(r);
+  setTimeout(()=>r.remove(),1500);
+});
+
+// ===== 颂钵 =====
+const bowlEl=document.getElementById('bowl');
+const bowlSound=new Audio('freesound.mp3');
+bowlEl.addEventListener('click',function(e){
+  e.stopPropagation();
+  bowlEl.classList.remove('ring');
+  void bowlEl.offsetWidth;
+  bowlEl.classList.add('ring');
+  bowlSound.currentTime=0;
+  bowlSound.volume=document.getElementById('vol').value;
+  bowlSound.play();
+  // 颂钵涟漪
+  for(let i=0;i<3;i++){
+    setTimeout(()=>{
+      const r=document.createElement('div');
+      r.className='ripple';
+      const rect=bowlEl.getBoundingClientRect();
+      r.style.left=(rect.left+rect.width/2)+'px';
+      r.style.top=(rect.top+rect.height/2)+'px';
+      document.body.appendChild(r);
+      setTimeout(()=>r.remove(),1500);
+    },i*300);
+  }
+});
+
+// ===== 音乐播放 =====
+let currentAudio=null,activeBtn=null;
+const vol=document.getElementById('vol');
+document.querySelectorAll('.btn').forEach(btn=>{
+  btn.addEventListener('click',function(e){
+    e.stopPropagation();
+    if(activeBtn===btn){
+      currentAudio.pause();btn.classList.remove('active');activeBtn=null;return;
+    }
+    if(currentAudio){currentAudio.pause();activeBtn.classList.remove('active')}
+    currentAudio=new Audio(btn.dataset.src);
+    currentAudio.loop=true;
+    currentAudio.volume=vol.value;
+    currentAudio.play();
+    btn.classList.add('active');activeBtn=btn;
+  });
+});
+vol.oninput=()=>{
+  if(currentAudio)currentAudio.volume=vol.value;
+};
+
+// ===== 释放烦恼 =====
+const releaseInput=document.getElementById('releaseInput');
+const releaseBtn=document.getElementById('releaseBtn');
+releaseBtn.addEventListener('click',function(e){
+  e.stopPropagation();
+  const text=releaseInput.value.trim();
+  if(!text)return;
+  const rect=releaseInput.getBoundingClientRect();
+  const cx=rect.left+rect.width/2;
+  const cy=rect.top+rect.height/2;
+  // 将文字拆成单个字符，每个字符变成一个粒子
+  for(let i=0;i<text.length;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    p.textContent=text[i];
+    p.style.left=cx+'px';
+    p.style.top=cy+'px';
+    const angle=Math.random()*Math.PI*2;
+    const dist=120+Math.random()*200;
+    p.style.setProperty('--tx',Math.cos(angle)*dist+'px');
+    p.style.setProperty('--ty',(Math.sin(angle)*dist - 80)+'px');
+    p.style.animationDelay=(i*0.05)+'s';
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),3000);
+  }
+  releaseInput.value='';
+  // 涟漪
+  const r=document.createElement('div');
+  r.className='ripple';r.style.left=cx+'px';r.style.top=cy+'px';
+  document.body.appendChild(r);
+  setTimeout(()=>r.remove(),1500);
+});
+// 回车也能释放
+releaseInput.addEventListener('keydown',function(e){
+  if(e.key==='Enter')releaseBtn.click();
+});
+
+
+// ===== 鼠标拖动流星拖尾 =====
+let isDrawing=false;
+const trails=[];
+
+document.addEventListener('mousedown',function(e){
+  if(e.target.closest('.btn')||e.target.closest('.bowl')||e.target.closest('.release-btn')||e.target.closest('.release-input')||e.target.closest('input[type=range]'))return;
+  isDrawing=true;
+});
+
+document.addEventListener('mousemove',function(e){
+  if(!isDrawing)return;
+  // 一次生成多个光点，更密集
+  for(let j=0;j<3;j++){
+    const ox=(Math.random()-0.5)*6;
+    const oy=(Math.random()-0.5)*6;
+    const dot=document.createElement('div');
+    const size=Math.random()*3+2;
+    dot.style.cssText=`
+      position:fixed;
+      left:${e.clientX+ox}px;
+      top:${e.clientY+oy}px;
+      width:${size}px;height:${size}px;
+      background:radial-gradient(circle,rgba(255,245,220,1),rgba(232,200,140,0.4));
+      border-radius:50%;
+      pointer-events:none;
+      z-index:15;
+      box-shadow:0 0 ${size+4}px rgba(255,230,180,0.7),0 0 ${size+15}px rgba(232,200,140,0.3);
+      transition:all 1.2s ease-out;
+    `;
+    document.body.appendChild(dot);
+    trails.push(dot);
+  }
+
+  // 更频繁的碎星
+  if(Math.random()>0.2){
+    const spark=document.createElement('div');
+    const sx=(Math.random()-0.5)*30;
+    const sy=(Math.random()-0.5)*30;
+    const size=Math.random()*2.5+0.5;
+    spark.style.cssText=`
+      position:fixed;
+      left:${e.clientX+sx}px;
+      top:${e.clientY+sy}px;
+      width:${size}px;height:${size}px;
+      background:#fffbe6;
+      border-radius:50%;
+      pointer-events:none;
+      z-index:15;
+      opacity:0.9;
+      box-shadow:0 0 4px rgba(255,250,230,0.6);
+      transition:all 0.8s ease-out;
+    `;
+    document.body.appendChild(spark);
+    trails.push(spark);
+    setTimeout(()=>{
+      spark.style.opacity='0';
+      spark.style.transform=`translate(${(Math.random()-0.5)*40}px,${(Math.random()-0.5)*40}px) scale(0)`;
+    },30);
+    setTimeout(()=>spark.remove(),1000);
+  }
+});
+
+document.addEventListener('mouseup',function(){
+  isDrawing=false;
+  // 逐个淡出消失
+  trails.forEach((dot,i)=>{
+    setTimeout(()=>{
+      dot.style.opacity='0';
+      dot.style.transform='scale(0)';
+    },i*15);
+    setTimeout(()=>dot.remove(),i*15+1500);
+  });
+  trails.length=0;
+});
+
+</script>
+</body>
+</html>
