@@ -2,68 +2,96 @@
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 <title>INFJ 放松空间</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Georgia',serif;
-  background:#08080f;color:#e8dcc8;
-  height:100vh;overflow:hidden;cursor:default;
-  user-select:none;
-}
+body{font-family:'Georgia',serif;background:#08080f;color:#e8dcc8;
+  height:100vh;overflow:hidden;cursor:default;user-select:none;}
 
-/* 动态渐变背景 */
 .bg{
   position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;
-  background:linear-gradient(135deg,#08080f 0%,#0f1123 40%,#1a0f2e 70%,#08080f 100%);
-  background-size:400% 400%;
-  animation:bgShift 20s ease infinite;
+  background:linear-gradient(135deg,#06080e 0%,#0a1020 35%,#12102a 60%,#1a1008 85%,#06080e 100%);
+  background-size:400% 400%;animation:bgShift 20s ease infinite;
 }
-@keyframes bgShift{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
+@keyframes bgShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+.glow{position:fixed;z-index:1;border-radius:50%;filter:blur(80px);opacity:0.15;animation:float 12s ease-in-out infinite;}
+.glow1{width:500px;height:500px;background:#3a3575;top:-10%;left:-10%}
+.glow2{width:400px;height:400px;background:#7a4a2a;bottom:-10%;right:-10%;animation-delay:-6s}
+.glow3{width:300px;height:300px;background:#2a5070;top:50%;left:60%;animation-delay:-3s}
+@keyframes float{0%,100%{transform:translate(0,0)}33%{transform:translate(30px,-30px)}66%{transform:translate(-20px,20px)}}
+
+/* 月亮 */
+.moon{
+  position:fixed;top:6%;right:8%;z-index:3;
+  width:64px;height:64px;border-radius:50%;
+  background:radial-gradient(circle at 38% 38%,#fff8e8,#e8d89a 50%,#c8b870);
+  box-shadow:0 0 30px rgba(240,220,140,0.25),0 0 80px rgba(220,200,100,0.1);
+  animation:moonFloat 14s ease-in-out infinite;
+}
+.moon-glow{
+  position:absolute;inset:-30px;border-radius:50%;
+  background:radial-gradient(circle,rgba(240,220,140,0.12) 0%,transparent 70%);
+  animation:moonPulse 6s ease-in-out infinite;
+}
+@keyframes moonFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes moonPulse{0%,100%{opacity:0.6}50%{opacity:1}}
+
+/* 极光 */
+.aurora{position:fixed;top:0;left:0;right:0;height:45%;z-index:1;pointer-events:none;overflow:hidden;}
+.aurora-band{
+  position:absolute;width:200%;height:180px;
+  border-radius:50%;filter:blur(40px);opacity:0;
+  animation:auroraDrift linear infinite;
+}
+.aurora-band:nth-child(1){
+  background:linear-gradient(90deg,transparent,rgba(60,180,120,0.07),rgba(80,160,200,0.09),transparent);
+  top:10%;left:-50%;animation-duration:18s;animation-delay:0s;
+}
+.aurora-band:nth-child(2){
+  background:linear-gradient(90deg,transparent,rgba(120,80,200,0.07),rgba(60,160,180,0.08),transparent);
+  top:25%;left:-50%;animation-duration:24s;animation-delay:-8s;
+}
+.aurora-band:nth-child(3){
+  background:linear-gradient(90deg,transparent,rgba(80,200,160,0.05),rgba(100,100,220,0.07),transparent);
+  top:5%;left:-50%;animation-duration:30s;animation-delay:-15s;
+}
+@keyframes auroraDrift{
+  0%{transform:translateX(0) skewY(-3deg);opacity:0;}
+  15%{opacity:1;}85%{opacity:1;}
+  100%{transform:translateX(60%) skewY(3deg);opacity:0;}
 }
 
-/* 光晕 */
-.glow{
-  position:fixed;z-index:1;border-radius:50%;filter:blur(80px);opacity:0.15;
-  animation:float 12s ease-in-out infinite;
-}
-.glow1{width:500px;height:500px;background:#4a3f8a;top:-10%;left:-10%}
-.glow2{width:400px;height:400px;background:#8a5a3f;bottom:-10%;right:-10%;animation-delay:-6s}
-.glow3{width:300px;height:300px;background:#3f6a8a;top:50%;left:60%;animation-delay:-3s}
-@keyframes float{
-  0%,100%{transform:translate(0,0)}
-  33%{transform:translate(30px,-30px)}
-  66%{transform:translate(-20px,20px)}
-}
-
-/* 星星 */
 .stars{position:fixed;top:0;left:0;right:0;bottom:0;z-index:2;pointer-events:none}
-.star{
-  position:absolute;background:#fff;border-radius:50%;
-  animation:twinkle 4s ease-in-out infinite alternate;
+.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 4s ease-in-out infinite alternate;}
+.star.bright{
+  background:radial-gradient(circle,#fff 20%,rgba(200,220,255,0.5) 60%,transparent);
+  box-shadow:0 0 8px rgba(200,220,255,0.8),0 0 25px rgba(180,200,255,0.4),0 0 50px rgba(160,180,255,0.15);
+  animation:twinkleBright 3s ease-in-out infinite alternate;
 }
-@keyframes twinkle{0%{opacity:0.1;transform:scale(0.8)}100%{opacity:0.9;transform:scale(1.2)}}
+.star.warm{
+  background:radial-gradient(circle,#fff8e8 20%,rgba(255,220,160,0.5) 60%,transparent);
+  box-shadow:0 0 8px rgba(255,220,160,0.7),0 0 20px rgba(255,200,120,0.3);
+  animation:twinkleBright 4s ease-in-out infinite alternate;
+}
+@keyframes twinkle{0%{opacity:0.1;transform:scale(0.8)}100%{opacity:0.85;transform:scale(1.2)}}
+@keyframes twinkleBright{0%{opacity:0.5;transform:scale(0.9)}100%{opacity:1;transform:scale(1.4)}}
 
-/* 流星 */
 .meteor{
-  position:fixed;z-index:2;width:2px;height:80px;pointer-events:none;
-  background:linear-gradient(to bottom,rgba(255,255,255,0.8),transparent);
-  animation:meteorFall 6s linear infinite;opacity:0;
+  position:fixed;z-index:2;pointer-events:none;width:2px;
+  background:linear-gradient(to bottom,rgba(255,255,255,0.9),rgba(255,240,200,0.3),transparent);
+  animation:meteorFall linear infinite;opacity:0;
 }
 @keyframes meteorFall{
   0%{transform:translate(0,0) rotate(-45deg);opacity:0}
-  5%{opacity:1}
-  15%{opacity:0;transform:translate(-300px,300px) rotate(-45deg)}
+  4%{opacity:1}18%{opacity:0;transform:translate(-350px,350px) rotate(-45deg)}
   100%{opacity:0}
 }
 
-/* 水波涟漪 */
 .ripple{
   position:fixed;z-index:5;pointer-events:none;
-  border:1px solid rgba(232,220,200,0.4);
-  border-radius:50%;
+  border:1px solid rgba(232,220,200,0.4);border-radius:50%;
   animation:rippleOut 1.5s ease-out forwards;
 }
 @keyframes rippleOut{
@@ -71,381 +99,405 @@ body{font-family:'Georgia',serif;
   100%{width:300px;height:300px;opacity:0;margin-left:-150px;margin-top:-150px}
 }
 
-/* 主内容 */
 .content{
   position:relative;z-index:10;height:100vh;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:36px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;
 }
-
-/* 治愈文案 */
+.greeting{
+  position:fixed;top:28px;left:50%;z-index:10;
+  font-size:0.85rem;letter-spacing:3px;
+  color:rgba(232,220,200,0.7);
+  opacity:0;animation:greetFade 2s ease forwards 0.3s;
+}
+@keyframes greetFade{
+  from{opacity:0;translate:-50% 8px}
+  to{opacity:1;translate:-50% 0}
+}
 .quote{
   font-size:1.5rem;text-align:center;max-width:480px;
-  line-height:2;letter-spacing:2px;
+  line-height:2;letter-spacing:2px;cursor:pointer;
   opacity:0;animation:fadeUp 2.5s ease forwards 0.5s;
   text-shadow:0 0 30px rgba(232,220,200,0.15);
+  transition:opacity 0.6s ease;
 }
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
-}
-.quote-divider{
-  width:40px;height:1px;background:rgba(232,220,200,0.3);
-  margin:0 auto;margin-top:16px;
-}
+.quote.fading{opacity:0 !important;transform:translateY(10px)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.quote-divider{width:40px;height:1px;background:rgba(232,220,200,0.3);margin:0 auto;margin-top:16px}
+.quote-hint{font-size:0.6rem;opacity:0.25;letter-spacing:2px;margin-top:4px;}
 
-/* 按钮 */
 .btn{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
   color:#e8dcc8;padding:12px 28px;border-radius:30px;
   cursor:pointer;font-size:0.95rem;letter-spacing:1px;
   transition:all 0.5s ease;backdrop-filter:blur(10px);
 }
-.btn:hover{
-  background:rgba(255,255,255,0.1);
-  border-color:rgba(232,220,200,0.3);
-  box-shadow:0 0 25px rgba(232,220,200,0.08);
-  transform:translateY(-2px);
+.btn:hover{background:rgba(255,255,255,0.1);border-color:rgba(232,220,200,0.3);box-shadow:0 0 25px rgba(232,220,200,0.08);transform:translateY(-2px);}
+.btn.active{background:rgba(232,220,200,0.1);border-color:rgba(232,220,200,0.4);box-shadow:0 0 40px rgba(232,220,200,0.1);}
+
+/* 呼吸圆 */
+.breath-wrap{
+  position:fixed;bottom:60px;right:40px;z-index:10;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  opacity:0;animation:fadeUp 2s ease forwards 3.5s;cursor:pointer;
 }
-.btn.active{
-  background:rgba(232,220,200,0.1);
-  border-color:rgba(232,220,200,0.4);
-  box-shadow:0 0 40px rgba(232,220,200,0.1);
+.breath-circle{
+  position:relative;width:56px;height:56px;
 }
+.breath-ring{
+  width:56px;height:56px;border-radius:50%;
+  border:1px solid rgba(232,220,200,0.25);
+  transition:transform 4s ease-in-out, border-color 4s ease-in-out, box-shadow 4s ease-in-out;
+}
+.breath-ring.inhale{transform:scale(1.6);border-color:rgba(120,180,220,0.5);box-shadow:0 0 20px rgba(120,180,220,0.15)}
+.breath-ring.exhale{transform:scale(1);border-color:rgba(232,220,200,0.25);box-shadow:none}
+.breath-dot{
+  position:absolute;width:6px;height:6px;border-radius:50%;
+  background:rgba(232,220,200,0.6);
+  top:50%;left:50%;margin-left:-3px;margin-top:-3px;
+  transition:transform 4s ease-in-out, background 4s ease-in-out;
+}
+.breath-ring.inhale~.breath-dot{transform:scale(2);background:rgba(120,180,220,0.8)}
+.breath-ring.exhale~.breath-dot{transform:scale(1);background:rgba(232,220,200,0.6)}
+.breath-label{font-size:0.65rem;letter-spacing:2px;color:rgba(232,220,200,0.4);transition:color 0.5s}
 </style>
 </head>
 <body>
-
 <style>
-/* 颂钵 */
-.bowl-wrap{
-  opacity:0;animation:fadeUp 2s ease forwards 1.8s;
-  display:flex;flex-direction:column;align-items:center;gap:10px;
-}
+.bowl-wrap{opacity:0;animation:fadeUp 2s ease forwards 1.8s;display:flex;flex-direction:column;align-items:center;gap:10px;}
 .bowl{
   width:80px;height:80px;border-radius:50%;cursor:pointer;
   background:radial-gradient(circle at 35% 35%,#c9a96e,#6b5a3e 70%,#3a2f20);
-  box-shadow:0 0 0 rgba(201,169,110,0);
-  transition:box-shadow 0.3s;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.6rem;
+  box-shadow:0 0 0 rgba(201,169,110,0);transition:box-shadow 0.3s;display:flex;align-items:center;justify-content:center;font-size:1.6rem;
 }
 .bowl:hover{box-shadow:0 0 40px rgba(201,169,110,0.25)}
 .bowl.ring{animation:bowlRing 1.5s ease-out}
-@keyframes bowlRing{
-  0%{box-shadow:0 0 0 0 rgba(201,169,110,0.5)}
-  100%{box-shadow:0 0 0 80px rgba(201,169,110,0)}
-}
+@keyframes bowlRing{0%{box-shadow:0 0 0 0 rgba(201,169,110,0.5)}100%{box-shadow:0 0 0 80px rgba(201,169,110,0)}}
 .bowl-label{font-size:0.7rem;opacity:0.4;letter-spacing:1px}
 
-/* 释放烦恼 */
-.release-wrap{
-  opacity:0;animation:fadeUp 2s ease forwards 2.2s;
-  display:flex;flex-direction:column;align-items:center;gap:12px;
-}
+.release-wrap{opacity:0;animation:fadeUp 2s ease forwards 2.2s;display:flex;flex-direction:column;align-items:center;gap:12px;}
 .release-input{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:20px;padding:10px 20px;
-  color:#e8dcc8;font-size:0.9rem;width:280px;
-  outline:none;font-family:'Georgia',serif;
-  letter-spacing:1px;text-align:center;
-  transition:all 0.4s;
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);
+  border-radius:20px;padding:10px 20px;color:#e8dcc8;font-size:0.9rem;width:280px;
+  outline:none;font-family:'Georgia',serif;letter-spacing:1px;text-align:center;transition:all 0.4s;
 }
 .release-input::placeholder{color:rgba(232,220,200,0.3)}
-.release-input:focus{
-  border-color:rgba(232,220,200,0.3);
-  box-shadow:0 0 20px rgba(232,220,200,0.06);
-}
+.release-input:focus{border-color:rgba(232,220,200,0.3);box-shadow:0 0 20px rgba(232,220,200,0.06)}
 .release-btn{
   background:none;border:1px solid rgba(255,255,255,0.1);
   color:rgba(232,220,200,0.5);padding:8px 24px;border-radius:20px;
-  cursor:pointer;font-size:0.8rem;letter-spacing:2px;
-  transition:all 0.4s;
+  cursor:pointer;font-size:0.8rem;letter-spacing:2px;transition:all 0.4s;
 }
-.release-btn:hover{
-  color:#e8dcc8;border-color:rgba(232,220,200,0.3);
+.release-btn:hover{color:#e8dcc8;border-color:rgba(232,220,200,0.3)}
+
+.particle{position:fixed;z-index:20;pointer-events:none;color:#e8dcc8;font-size:0.85rem;opacity:1;animation:particleFly 2.5s ease-out forwards;}
+@keyframes particleFly{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0.2)}}
+
+.vol-wrap{display:flex;align-items:center;gap:10px;opacity:0;animation:fadeUp 2s ease forwards 1.5s;}
+input[type=range]{-webkit-appearance:none;width:140px;height:3px;background:rgba(255,255,255,0.1);border-radius:2px;outline:none;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;background:#e8dcc8;border-radius:50%;cursor:pointer;box-shadow:0 0 10px rgba(232,220,200,0.3);}
+
+.hint{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);font-size:0.65rem;opacity:0;letter-spacing:2px;color:rgba(232,220,200,0.2);animation:fadeUp 2s ease forwards 3s;z-index:10;}
+
+.firefly{
+  position:fixed;z-index:4;pointer-events:none;border-radius:50%;
+  width:4px;height:4px;background:rgba(255,240,180,0.7);
+  box-shadow:0 0 6px rgba(255,230,150,0.5),0 0 15px rgba(255,220,100,0.2);
+  animation:fireflyMove linear infinite;
+}
+@keyframes fireflyMove{
+  0%{transform:translate(0,0);opacity:0}
+  10%{opacity:0.8}50%{opacity:0.3}90%{opacity:0.7}
+  100%{transform:translate(var(--fx),var(--fy));opacity:0}
 }
 
-/* 粒子消散 */
-.particle{
-  position:fixed;z-index:20;pointer-events:none;
-  color:#e8dcc8;font-size:0.85rem;
-  opacity:1;
-  animation:particleFly 2.5s ease-out forwards;
-}
-@keyframes particleFly{
-  0%{opacity:1;transform:translate(0,0) scale(1)}
-  100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0.2)}
-}
-
-/* 音量 */
-.vol-wrap{
-  display:flex;align-items:center;gap:10px;
-  opacity:0;animation:fadeUp 2s ease forwards 1.5s;
-}
-input[type=range]{
-  -webkit-appearance:none;width:140px;height:3px;
-  background:rgba(255,255,255,0.1);border-radius:2px;outline:none;
-}
-input[type=range]::-webkit-slider-thumb{
-  -webkit-appearance:none;width:12px;height:12px;
-  background:#e8dcc8;border-radius:50%;cursor:pointer;
-  box-shadow:0 0 10px rgba(232,220,200,0.3);
-}
-
-/* 底部提示 */
-.hint{
-  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
-  font-size:0.65rem;opacity:0;letter-spacing:2px;
-  color:rgba(232,220,200,0.2);
-  animation:fadeUp 2s ease forwards 3s;
-  z-index:10;
+@media(max-width:600px){
+  .quote{font-size:1.15rem;max-width:85vw;line-height:1.8}
+  .greeting{font-size:0.75rem}
+  .content{gap:24px;padding:0 16px}
+  .breath-wrap{bottom:30px;right:20px}
+  .release-input{width:220px;font-size:0.8rem}
+  .moon{width:44px;height:44px;top:4%;right:5%}
+  .btn{padding:10px 18px;font-size:0.8rem}
 }
 </style>
 
 <div class="bg"></div>
-<div class="glow glow1"></div>
-<div class="glow glow2"></div>
-<div class="glow glow3"></div>
+<div class="glow glow1"></div><div class="glow glow2"></div><div class="glow glow3"></div>
+
+<div class="aurora">
+  <div class="aurora-band"></div>
+  <div class="aurora-band"></div>
+  <div class="aurora-band"></div>
+</div>
+
+<canvas id="milkyway" style="position:fixed;top:0;left:0;z-index:1;pointer-events:none"></canvas>
 <div class="stars" id="stars"></div>
-<div class="meteor" style="top:5%;left:70%;animation-delay:0s"></div>
-<div class="meteor" style="top:15%;left:40%;animation-delay:3s"></div>
-<div class="meteor" style="top:8%;left:55%;animation-delay:7s"></div>
+
+<div class="moon"><div class="moon-glow"></div></div>
+
+<div class="meteor" style="top:3%;left:75%;height:90px;animation-duration:7s;animation-delay:0s"></div>
+<div class="meteor" style="top:10%;left:50%;height:70px;animation-duration:9s;animation-delay:2s"></div>
+<div class="meteor" style="top:5%;left:30%;height:110px;animation-duration:8s;animation-delay:4.5s"></div>
+<div class="meteor" style="top:18%;left:85%;height:80px;animation-duration:11s;animation-delay:1.5s"></div>
+<div class="meteor" style="top:2%;left:60%;height:95px;animation-duration:10s;animation-delay:6s"></div>
+<div class="meteor" style="top:12%;left:20%;height:75px;animation-duration:13s;animation-delay:3s"></div>
+<div class="meteor" style="top:7%;left:90%;height:100px;animation-duration:8.5s;animation-delay:8s"></div>
+<div class="meteor" style="top:20%;left:42%;height:85px;animation-duration:12s;animation-delay:5s"></div>
+
+<div class="greeting" id="greeting"></div>
 
 <div class="content">
-  <!-- 治愈文案 -->
   <div class="quote" id="quote"></div>
-
-  <!-- 颂钵 -->
+  <div class="quote-hint">轻触文字换一句</div>
   <div class="bowl-wrap">
     <div class="bowl" id="bowl">🔔</div>
     <div class="bowl-label">轻触颂钵</div>
   </div>
-
-  <!-- 音乐按钮 -->
   <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp 2s ease forwards 1.5s">
     <button class="btn" data-src="vem_click-rain-sound-188158.mp3">🌧️ 雨声</button>
     <button class="btn" data-src="22.mp3">🌙 晚安 Lo-Fi</button>
     <button class="btn" data-src="lofi.mp3">🎵 Lo-Fi</button>
   </div>
-
-  <!-- 音量 -->
   <div class="vol-wrap">
     <span style="font-size:0.7rem;opacity:0.4">🔈</span>
     <input type="range" id="vol" min="0" max="1" step="0.05" value="0.5">
     <span style="font-size:0.7rem;opacity:0.4">🔊</span>
   </div>
-
-  <!-- 释放烦恼 -->
   <div class="release-wrap">
     <input class="release-input" id="releaseInput" type="text" placeholder="写下你想放下的事..." maxlength="50">
     <button class="release-btn" id="releaseBtn">✦ 释 放 ✦</button>
   </div>
 </div>
 
+<div class="breath-wrap">
+  <div class="breath-circle">
+    <div class="breath-ring" id="breathRing"></div>
+    <div class="breath-dot" id="breathDot"></div>
+  </div>
+  <div class="breath-label" id="breathLabel">吸气…</div>
+</div>
+
 <div class="hint">轻触任意处，泛起涟漪</div>
 
 <script>
+// 银河
+const mw=document.getElementById('milkyway');
+mw.width=innerWidth;mw.height=innerHeight;
+window.addEventListener('resize',()=>{mw.width=innerWidth;mw.height=innerHeight;drawMilkyWay()});
+function drawMilkyWay(){
+  const c=mw.getContext('2d');
+  c.clearRect(0,0,mw.width,mw.height);
+  const grad=c.createLinearGradient(0,mw.height*0.8,mw.width,mw.height*0.1);
+  grad.addColorStop(0,'rgba(80,90,160,0)');
+  grad.addColorStop(0.2,'rgba(100,110,180,0.07)');
+  grad.addColorStop(0.4,'rgba(140,130,200,0.11)');
+  grad.addColorStop(0.5,'rgba(160,150,210,0.13)');
+  grad.addColorStop(0.6,'rgba(140,130,200,0.11)');
+  grad.addColorStop(0.8,'rgba(100,110,180,0.07)');
+  grad.addColorStop(1,'rgba(80,90,160,0)');
+  c.save();c.translate(mw.width/2,mw.height/2);c.rotate(-0.45);
+  c.fillStyle=grad;c.fillRect(-mw.width,-mw.height*0.22,mw.width*2,mw.height*0.44);
+  c.restore();
+  for(let i=0;i<180;i++){
+    const t=Math.random();
+    const bx=mw.width*t;
+    const by=mw.height*0.8-(mw.height*0.7)*t+(Math.random()-0.5)*mw.height*0.28;
+    c.beginPath();c.arc(bx,by,Math.random()*0.8+0.2,0,Math.PI*2);
+    c.fillStyle=`rgba(200,210,255,${Math.random()*0.35+0.05})`;c.fill();
+  }
+}
+drawMilkyWay();
+
 // 星星
 const starsEl=document.getElementById('stars');
-for(let i=0;i<120;i++){
+for(let i=0;i<200;i++){
   const s=document.createElement('div');s.className='star';
-  s.style.left=Math.random()*100+'%';
-  s.style.top=Math.random()*100+'%';
-  s.style.animationDelay=Math.random()*4+'s';
-  const size=Math.random()*2+0.5;
-  s.style.width=s.style.height=size+'px';
+  const size=Math.random()*1.5+0.5;
+  s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${size}px;height:${size}px;animation-delay:${Math.random()*6}s;animation-duration:${3+Math.random()*5}s`;
+  starsEl.appendChild(s);
+}
+for(let i=0;i<25;i++){
+  const s=document.createElement('div');s.className='star bright';
+  const size=Math.random()*2.5+2;
+  s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${size}px;height:${size}px;animation-delay:${Math.random()*5}s;animation-duration:${2+Math.random()*4}s`;
+  starsEl.appendChild(s);
+}
+for(let i=0;i<12;i++){
+  const s=document.createElement('div');s.className='star warm';
+  const size=Math.random()*2+2.5;
+  s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${size}px;height:${size}px;animation-delay:${Math.random()*6}s;animation-duration:${3+Math.random()*4}s`;
   starsEl.appendChild(s);
 }
 
-// 治愈文案
-const quotes=[
-  "你已经做得很好了，\n允许自己休息一会儿。",
-  "世界很大，但此刻，\n你只需要照顾好自己。",
-  "不必急着找到答案，\n有些花需要更长的时间才会开。",
-  "你的敏感是一种天赋，\n而不是负担。",
-  "深呼吸，\n这一刻只属于你。",
-  "月亮也有看不见的一面，\n但它依然完整。",
-  "慢慢来，\n比较快。",
-  "你不需要被所有人理解，\n你只需要被自己接纳。",
-  "此刻的安静，\n是你给自己最好的礼物。",
-  "不必向任何人解释你的疲惫，\n休息本身就是答案。"
-];
-const q=quotes[Math.floor(Math.random()*quotes.length)];
-document.getElementById('quote').innerHTML=q.replace('\n','<br><div class="quote-divider"></div>');
+// 时间问候
+const h=new Date().getHours();
+const greetText=h<6?'夜深了，辛苦了':h<12?'早上好，新的一天':h<14?'中午好，记得休息':h<18?'下午好，慢慢来':h<22?'晚上好，放松一下':'夜深了，辛苦了';
+document.getElementById('greeting').textContent='— '+greetText+' —';
 
-// ===== 水波涟漪 =====
+// 文案
+const quotes=["你已经做得很好了，\n允许自己休息一会儿。","世界很大，但此刻，\n你只需要照顾好自己。","不必急着找到答案，\n有些花需要更长的时间才会开。","你的敏感是一种天赋，\n而不是负担。","深呼吸，\n这一刻只属于你。","月亮也有看不见的一面，\n但它依然完整。","慢慢来，\n比较快。","你不需要被所有人理解，\n你只需要被自己接纳。","此刻的安静，\n是你给自己最好的礼物。","不必向任何人解释你的疲惫，\n休息本身就是答案。"];
+let qi=Math.floor(Math.random()*quotes.length);
+const quoteEl=document.getElementById('quote');
+function showQuote(){quoteEl.innerHTML=quotes[qi].replace('\n','<br><div class="quote-divider"></div>');}
+showQuote();
+quoteEl.addEventListener('click',function(e){
+  e.stopPropagation();
+  quoteEl.classList.add('fading');
+  setTimeout(()=>{qi=(qi+1)%quotes.length;showQuote();quoteEl.classList.remove('fading');},500);
+});
+// 自动轮换
+setInterval(()=>{quoteEl.classList.add('fading');setTimeout(()=>{qi=(qi+1)%quotes.length;showQuote();quoteEl.classList.remove('fading');},500);},15000);
+
+// 涟漪
 document.addEventListener('click',function(e){
-  if(e.target.closest('.btn')||e.target.closest('.bowl')||e.target.closest('.release-btn')||e.target.closest('.release-input')||e.target.closest('input[type=range]'))return;
-  const r=document.createElement('div');
-  r.className='ripple';
-  r.style.left=e.clientX+'px';
-  r.style.top=e.clientY+'px';
-  document.body.appendChild(r);
-  setTimeout(()=>r.remove(),1500);
+  if(e.target.closest('.btn,.bowl,.release-btn,.release-input,input[type=range],.breath-wrap'))return;
+  const r=document.createElement('div');r.className='ripple';
+  r.style.left=e.clientX+'px';r.style.top=e.clientY+'px';
+  document.body.appendChild(r);setTimeout(()=>r.remove(),1500);
 });
 
-// ===== 颂钵 =====
+// 颂钵
 const bowlEl=document.getElementById('bowl');
 const bowlSound=new Audio('freesound.mp3');
 bowlEl.addEventListener('click',function(e){
   e.stopPropagation();
-  bowlEl.classList.remove('ring');
-  void bowlEl.offsetWidth;
-  bowlEl.classList.add('ring');
-  bowlSound.currentTime=0;
-  bowlSound.volume=document.getElementById('vol').value;
-  bowlSound.play();
-  // 颂钵涟漪
+  bowlEl.classList.remove('ring');void bowlEl.offsetWidth;bowlEl.classList.add('ring');
+  bowlSound.currentTime=0;bowlSound.volume=document.getElementById('vol').value;bowlSound.play();
   for(let i=0;i<3;i++){
     setTimeout(()=>{
-      const r=document.createElement('div');
-      r.className='ripple';
+      const r=document.createElement('div');r.className='ripple';
       const rect=bowlEl.getBoundingClientRect();
-      r.style.left=(rect.left+rect.width/2)+'px';
-      r.style.top=(rect.top+rect.height/2)+'px';
-      document.body.appendChild(r);
-      setTimeout(()=>r.remove(),1500);
+      r.style.left=(rect.left+rect.width/2)+'px';r.style.top=(rect.top+rect.height/2)+'px';
+      document.body.appendChild(r);setTimeout(()=>r.remove(),1500);
     },i*300);
   }
 });
 
-// ===== 音乐播放 =====
+// 音乐
 let currentAudio=null,activeBtn=null;
 const vol=document.getElementById('vol');
 document.querySelectorAll('.btn').forEach(btn=>{
   btn.addEventListener('click',function(e){
     e.stopPropagation();
-    if(activeBtn===btn){
-      currentAudio.pause();btn.classList.remove('active');activeBtn=null;return;
-    }
-    if(currentAudio){currentAudio.pause();activeBtn.classList.remove('active')}
-    currentAudio=new Audio(btn.dataset.src);
-    currentAudio.loop=true;
-    currentAudio.volume=vol.value;
-    currentAudio.play();
+    if(activeBtn===btn){currentAudio.pause();btn.classList.remove('active');activeBtn=null;return;}
+    if(currentAudio){currentAudio.pause();activeBtn.classList.remove('active');}
+    currentAudio=new Audio(btn.dataset.src);currentAudio.loop=true;currentAudio.volume=vol.value;currentAudio.play();
     btn.classList.add('active');activeBtn=btn;
   });
 });
-vol.oninput=()=>{
-  if(currentAudio)currentAudio.volume=vol.value;
-};
+vol.oninput=()=>{if(currentAudio)currentAudio.volume=vol.value};
 
-// ===== 释放烦恼 =====
+// 释放烦恼
 const releaseInput=document.getElementById('releaseInput');
 const releaseBtn=document.getElementById('releaseBtn');
 releaseBtn.addEventListener('click',function(e){
   e.stopPropagation();
-  const text=releaseInput.value.trim();
-  if(!text)return;
+  const text=releaseInput.value.trim();if(!text)return;
   const rect=releaseInput.getBoundingClientRect();
-  const cx=rect.left+rect.width/2;
-  const cy=rect.top+rect.height/2;
-  // 将文字拆成单个字符，每个字符变成一个粒子
+  const cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;
   for(let i=0;i<text.length;i++){
-    const p=document.createElement('div');
-    p.className='particle';
-    p.textContent=text[i];
-    p.style.left=cx+'px';
-    p.style.top=cy+'px';
-    const angle=Math.random()*Math.PI*2;
-    const dist=120+Math.random()*200;
+    const p=document.createElement('div');p.className='particle';p.textContent=text[i];
+    p.style.left=cx+'px';p.style.top=cy+'px';
+    const angle=Math.random()*Math.PI*2,dist=120+Math.random()*200;
     p.style.setProperty('--tx',Math.cos(angle)*dist+'px');
-    p.style.setProperty('--ty',(Math.sin(angle)*dist - 80)+'px');
+    p.style.setProperty('--ty',(Math.sin(angle)*dist-80)+'px');
     p.style.animationDelay=(i*0.05)+'s';
-    document.body.appendChild(p);
-    setTimeout(()=>p.remove(),3000);
+    document.body.appendChild(p);setTimeout(()=>p.remove(),3000);
   }
   releaseInput.value='';
-  // 涟漪
-  const r=document.createElement('div');
-  r.className='ripple';r.style.left=cx+'px';r.style.top=cy+'px';
-  document.body.appendChild(r);
-  setTimeout(()=>r.remove(),1500);
+  const r=document.createElement('div');r.className='ripple';
+  r.style.left=cx+'px';r.style.top=cy+'px';
+  document.body.appendChild(r);setTimeout(()=>r.remove(),1500);
 });
-// 回车也能释放
-releaseInput.addEventListener('keydown',function(e){
-  if(e.key==='Enter')releaseBtn.click();
+releaseInput.addEventListener('keydown',e=>{if(e.key==='Enter')releaseBtn.click()});
+
+// 空格键控制音乐
+document.addEventListener('keydown',function(e){
+  if(e.code==='Space'&&document.activeElement!==releaseInput){
+    e.preventDefault();
+    if(currentAudio){currentAudio.paused?currentAudio.play():currentAudio.pause();}
+  }
 });
 
+// 呼吸引导
+const breathLabel=document.getElementById('breathLabel');
+const breathRing=document.getElementById('breathRing');
+const breathSteps=[
+  {text:'吸气…',cls:'inhale',dur:4000},
+  {text:'屏息…',cls:'inhale',dur:1500},
+  {text:'呼气…',cls:'exhale',dur:4000},
+  {text:'停留…',cls:'exhale',dur:1500}
+];
+let bi=0;
+function nextBreath(){
+  const step=breathSteps[bi];
+  breathLabel.textContent=step.text;
+  breathRing.className='breath-ring '+step.cls;
+  bi=(bi+1)%breathSteps.length;
+  setTimeout(nextBreath,step.dur);
+}
+setTimeout(nextBreath,3500);
 
-// ===== 鼠标拖动流星拖尾 =====
+// 鼠标星轨
+const cvs=document.createElement('canvas');
+cvs.style.cssText='position:fixed;top:0;left:0;z-index:15;pointer-events:none';
+cvs.width=innerWidth;cvs.height=innerHeight;
+document.body.appendChild(cvs);
+const ctx=cvs.getContext('2d');
+window.addEventListener('resize',()=>{cvs.width=innerWidth;cvs.height=innerHeight});
 let isDrawing=false;
-const trails=[];
-
+const pts=[],sparks=[];
 document.addEventListener('mousedown',function(e){
-  if(e.target.closest('.btn')||e.target.closest('.bowl')||e.target.closest('.release-btn')||e.target.closest('.release-input')||e.target.closest('input[type=range]'))return;
-  isDrawing=true;
+  if(e.target.closest('.btn,.bowl,.release-btn,.release-input,input[type=range]'))return;
+  isDrawing=true;pts.length=0;pts.push({x:e.clientX,y:e.clientY,t:Date.now()});
 });
-
 document.addEventListener('mousemove',function(e){
   if(!isDrawing)return;
-  // 一次生成多个光点，更密集
-  for(let j=0;j<3;j++){
-    const ox=(Math.random()-0.5)*6;
-    const oy=(Math.random()-0.5)*6;
-    const dot=document.createElement('div');
-    const size=Math.random()*3+2;
-    dot.style.cssText=`
-      position:fixed;
-      left:${e.clientX+ox}px;
-      top:${e.clientY+oy}px;
-      width:${size}px;height:${size}px;
-      background:radial-gradient(circle,rgba(255,245,220,1),rgba(232,200,140,0.4));
-      border-radius:50%;
-      pointer-events:none;
-      z-index:15;
-      box-shadow:0 0 ${size+4}px rgba(255,230,180,0.7),0 0 ${size+15}px rgba(232,200,140,0.3);
-      transition:all 1.2s ease-out;
-    `;
-    document.body.appendChild(dot);
-    trails.push(dot);
-  }
-
-  // 更频繁的碎星
-  if(Math.random()>0.2){
-    const spark=document.createElement('div');
-    const sx=(Math.random()-0.5)*30;
-    const sy=(Math.random()-0.5)*30;
-    const size=Math.random()*2.5+0.5;
-    spark.style.cssText=`
-      position:fixed;
-      left:${e.clientX+sx}px;
-      top:${e.clientY+sy}px;
-      width:${size}px;height:${size}px;
-      background:#fffbe6;
-      border-radius:50%;
-      pointer-events:none;
-      z-index:15;
-      opacity:0.9;
-      box-shadow:0 0 4px rgba(255,250,230,0.6);
-      transition:all 0.8s ease-out;
-    `;
-    document.body.appendChild(spark);
-    trails.push(spark);
-    setTimeout(()=>{
-      spark.style.opacity='0';
-      spark.style.transform=`translate(${(Math.random()-0.5)*40}px,${(Math.random()-0.5)*40}px) scale(0)`;
-    },30);
-    setTimeout(()=>spark.remove(),1000);
+  pts.push({x:e.clientX,y:e.clientY,t:Date.now()});
+  if(Math.random()>0.5){
+    const angle=Math.random()*Math.PI*2,r=Math.random()*35+10;
+    const hue=Math.random()>0.5?[255,240,200]:[200,190,255];
+    sparks.push({x:e.clientX+Math.cos(angle)*r,y:e.clientY+Math.sin(angle)*r,vx:(Math.random()-0.5)*1.5,vy:(Math.random()-0.5)*1.5,size:Math.random()*2.5+0.8,life:1,decay:0.02+Math.random()*0.02,color:hue});
   }
 });
+document.addEventListener('mouseup',()=>{isDrawing=false});
+function draw(){
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  const now=Date.now();
+  while(pts.length&&now-pts[0].t>800)pts.shift();
+  if(pts.length>2){
+    for(let i=1;i<pts.length;i++){
+      const p=pts[i],life=1-(now-p.t)/800;
+      if(life<=0)continue;
+      const prev=pts[i-1];
+      ctx.beginPath();ctx.moveTo(prev.x,prev.y);
+      if(i+1<pts.length){const next=pts[i+1];ctx.quadraticCurveTo(p.x,p.y,(p.x+next.x)/2,(p.y+next.y)/2);}
+      else ctx.lineTo(p.x,p.y);
+      ctx.strokeStyle=`rgba(255,240,210,${life*life*0.6})`;ctx.lineWidth=life*5+1;ctx.lineCap='round';ctx.stroke();
+      ctx.strokeStyle=`rgba(220,200,160,${life*life*0.15})`;ctx.lineWidth=life*5+9;ctx.stroke();
+    }
+  }
+  for(let i=sparks.length-1;i>=0;i--){
+    const s=sparks[i];s.x+=s.vx;s.y+=s.vy;s.life-=s.decay;
+    if(s.life<=0){sparks.splice(i,1);continue;}
+    ctx.beginPath();ctx.arc(s.x,s.y,s.size*s.life,0,Math.PI*2);
+    ctx.fillStyle=`rgba(${s.color},${s.life})`;
+    ctx.shadowColor=`rgba(${s.color},${s.life*0.5})`;ctx.shadowBlur=6;ctx.fill();
+  }
+  ctx.shadowBlur=0;requestAnimationFrame(draw);
+}
+// 萤火虫
+function spawnFirefly(){
+  const f=document.createElement('div');f.className='firefly';
+  f.style.left=Math.random()*100+'%';f.style.top=(40+Math.random()*50)+'%';
+  const dx=(Math.random()-0.5)*200,dy=(Math.random()-0.5)*150;
+  f.style.setProperty('--fx',dx+'px');f.style.setProperty('--fy',dy+'px');
+  f.style.animationDuration=(8+Math.random()*12)+'s';
+  document.body.appendChild(f);setTimeout(()=>f.remove(),20000);
+}
+setInterval(spawnFirefly,2000);for(let i=0;i<6;i++)setTimeout(spawnFirefly,i*600);
 
-document.addEventListener('mouseup',function(){
-  isDrawing=false;
-  // 逐个淡出消失
-  trails.forEach((dot,i)=>{
-    setTimeout(()=>{
-      dot.style.opacity='0';
-      dot.style.transform='scale(0)';
-    },i*15);
-    setTimeout(()=>dot.remove(),i*15+1500);
-  });
-  trails.length=0;
-});
-
+draw();
 </script>
 </body>
 </html>
