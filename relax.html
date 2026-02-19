@@ -198,13 +198,15 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
 
 .hint{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);font-size:0.65rem;opacity:0;letter-spacing:2px;color:rgba(232,220,200,0.2);animation:fadeUp 2s ease forwards 3s;z-index:10;}
 
-/* 绿老头 */
-#elder{position:fixed;z-index:20;pointer-events:none;transition:left 0.12s ease-out,top 0.12s ease-out;width:56px;height:88px;bottom:auto;}
-#elder svg{width:56px;height:88px;overflow:visible;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.4));}
-.elder-tap{animation:elderTap 0.4s ease;}
-@keyframes elderTap{0%{transform:rotate(0deg)}25%{transform:rotate(-15deg)}75%{transform:rotate(10deg)}100%{transform:rotate(0deg)}}
-.elder-blink{animation:elderBlink 0.15s ease;}
-@keyframes elderBlink{0%,100%{transform:scaleY(1)}50%{transform:scaleY(0.1)}}
+/* 绿精灵 */
+#elder{position:fixed;z-index:20;pointer-events:none;width:64px;height:100px;}
+#elder svg{width:64px;height:100px;overflow:visible;filter:drop-shadow(0 0 8px rgba(80,220,120,0.5)) drop-shadow(0 0 24px rgba(60,180,100,0.25));}
+.elder-tap{animation:elderTap 0.5s ease;}
+@keyframes elderTap{0%{transform:rotate(0) scale(1)}30%{transform:rotate(-18deg) scale(1.08)}70%{transform:rotate(12deg) scale(1.04)}100%{transform:rotate(0) scale(1)}}
+.elder-blink{animation:elderBlink 0.18s ease;}
+@keyframes elderBlink{0%,100%{transform:scaleY(1)}50%{transform:scaleY(0.05)}}
+.elder-magic{position:fixed;z-index:19;pointer-events:none;border-radius:50%;animation:magicFade 1.2s ease-out forwards;}
+@keyframes magicFade{0%{opacity:0.9;transform:scale(0.3) translate(0,0)}100%{opacity:0;transform:scale(1) translate(var(--mx),var(--my))}}
 
 .firefly{
   position:fixed;z-index:4;pointer-events:none;border-radius:50%;
@@ -287,48 +289,75 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
 
 <div class="hint">轻触任意处，泛起涟漪</div>
 
-<!-- 绿老头 -->
+<!-- 绿精灵 -->
 <div id="elder">
-<svg viewBox="0 0 56 88" xmlns="http://www.w3.org/2000/svg">
-  <!-- 帽子 -->
-  <path d="M28 2 L38 26 H18 Z" fill="#2a7a3a"/>
-  <rect x="15" y="24" width="26" height="6" rx="3" fill="#1d5c2a"/>
-  <!-- 帽球 -->
-  <circle cx="28" cy="3" r="3.5" fill="#f0f0f0"/>
-  <!-- 帽子腰带 -->
-  <rect x="15" y="26" width="26" height="2" rx="1" fill="#f5c842"/>
+<svg viewBox="0 0 64 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="faceG" cx="40%" cy="35%"><stop offset="0%" stop-color="#d4f0c0"/><stop offset="100%" stop-color="#8ec87a"/></radialGradient>
+    <radialGradient id="bodyG" cx="30%" cy="20%"><stop offset="0%" stop-color="#2d6e3a"/><stop offset="100%" stop-color="#0f2e18"/></radialGradient>
+    <radialGradient id="hatG" cx="30%" cy="20%"><stop offset="0%" stop-color="#1a5c28"/><stop offset="100%" stop-color="#071810"/></radialGradient>
+    <radialGradient id="eyeGlowL" cx="50%" cy="50%"><stop offset="0%" stop-color="#a0ffb0" stop-opacity="1"/><stop offset="100%" stop-color="#40c060" stop-opacity="0"/></radialGradient>
+    <radialGradient id="eyeGlowR" cx="50%" cy="50%"><stop offset="0%" stop-color="#a0ffb0" stop-opacity="1"/><stop offset="100%" stop-color="#40c060" stop-opacity="0"/></radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="1.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <!-- 帽子尖 -->
+  <path d="M32 1 L44 30 H20 Z" fill="url(#hatG)"/>
+  <!-- 帽子星纹 -->
+  <path d="M32 8 L33.2 11.6 L37 11.6 L34 13.8 L35.2 17.4 L32 15.2 L28.8 17.4 L30 13.8 L27 11.6 L30.8 11.6 Z" fill="rgba(160,255,180,0.25)" filter="url(#glow)"/>
+  <!-- 帽檐 -->
+  <rect x="17" y="28" width="30" height="5" rx="2.5" fill="#0d3a18"/>
+  <!-- 帽带 -->
+  <rect x="17" y="30" width="30" height="1.5" rx="0.75" fill="rgba(100,220,140,0.4)"/>
   <!-- 脸 -->
-  <ellipse cx="28" cy="38" rx="13" ry="12" fill="#f5d5a0"/>
-  <!-- 眼睛 -->
-  <ellipse id="eye-l" cx="23" cy="36" rx="2.5" ry="2.8" fill="#fff"/>
-  <circle cx="23.6" cy="36.5" r="1.5" fill="#2a2a2a"/>
-  <ellipse id="eye-r" cx="33" cy="36" rx="2.5" ry="2.8" fill="#fff"/>
-  <circle cx="33.6" cy="36.5" r="1.5" fill="#2a2a2a"/>
+  <ellipse cx="32" cy="43" rx="13" ry="12" fill="url(#faceG)"/>
+  <!-- 眼眶光晕 -->
+  <ellipse cx="25" cy="41" rx="4" ry="4" fill="url(#eyeGlowL)" opacity="0.3"/>
+  <ellipse cx="39" cy="41" rx="4" ry="4" fill="url(#eyeGlowR)" opacity="0.3"/>
+  <!-- 眼白 -->
+  <ellipse id="eye-l" cx="25" cy="41" rx="3" ry="3.2" fill="#e8fff0"/>
+  <ellipse id="eye-r" cx="39" cy="41" rx="3" ry="3.2" fill="#e8fff0"/>
+  <!-- 瞳孔 -->
+  <circle cx="25.5" cy="41.5" r="1.8" fill="#0a2010"/>
+  <circle cx="39.5" cy="41.5" r="1.8" fill="#0a2010"/>
+  <!-- 眼睛高光 -->
+  <circle cx="26.2" cy="40.5" r="0.7" fill="rgba(160,255,180,0.9)"/>
+  <circle cx="40.2" cy="40.5" r="0.7" fill="rgba(160,255,180,0.9)"/>
   <!-- 眉毛 -->
-  <path d="M20.5 32.5 Q23 31 25.5 32.5" stroke="#8a6a3a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-  <path d="M30.5 32.5 Q33 31 35.5 32.5" stroke="#8a6a3a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M22 37 Q25 35.5 28 37" stroke="#2a5a30" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M36 37 Q39 35.5 42 37" stroke="#2a5a30" stroke-width="1.2" fill="none" stroke-linecap="round"/>
   <!-- 鼻子 -->
-  <ellipse cx="28" cy="40" rx="2.5" ry="2" fill="#e8b888"/>
-  <!-- 胡须 -->
-  <path d="M17 44 Q28 50 39 44" fill="#f0f0f0"/>
-  <path d="M19 44 Q28 52 37 44" fill="#e8e8e8"/>
+  <ellipse cx="32" cy="45" rx="2" ry="1.5" fill="#7ab870" opacity="0.7"/>
+  <!-- 胡须 — 飘逸三缕 -->
+  <path d="M22 50 Q32 56 42 50" fill="rgba(220,255,230,0.85)"/>
+  <path d="M24 50 Q32 58 40 50" fill="rgba(200,240,210,0.6)"/>
+  <path d="M20 48 Q18 54 16 58" stroke="rgba(220,255,230,0.5)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M44 48 Q46 54 48 58" stroke="rgba(220,255,230,0.5)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
   <!-- 身体 -->
-  <path d="M16 56 Q14 72 14 82 H42 Q42 72 40 56 Q34 52 28 52 Q22 52 16 56Z" fill="#2a7a3a"/>
+  <path d="M19 62 Q17 78 17 90 H47 Q47 78 45 62 Q39 57 32 57 Q25 57 19 62Z" fill="url(#bodyG)"/>
+  <!-- 身体纹路 -->
+  <path d="M24 65 Q32 63 40 65" stroke="rgba(80,180,100,0.2)" stroke-width="1" fill="none"/>
+  <path d="M22 72 Q32 70 42 72" stroke="rgba(80,180,100,0.15)" stroke-width="1" fill="none"/>
   <!-- 腰带 -->
-  <rect x="16" y="60" width="24" height="5" rx="2.5" fill="#1d5c2a"/>
-  <rect x="25" y="59" width="6" height="7" rx="1.5" fill="#f5c842"/>
-  <!-- 领口白毛 -->
-  <ellipse cx="28" cy="54" rx="8" ry="3" fill="#f0f0f0"/>
-  <!-- 袖子/手 -->
-  <path d="M16 58 Q8 62 7 68" stroke="#2a7a3a" stroke-width="7" stroke-linecap="round" fill="none"/>
-  <circle cx="7" cy="69" r="4" fill="#f5d5a0"/>
-  <path d="M40 58 Q48 62 49 68" stroke="#2a7a3a" stroke-width="7" stroke-linecap="round" fill="none"/>
-  <circle cx="49" cy="69" r="4" fill="#f5d5a0"/>
-  <!-- 下摆白毛 -->
-  <ellipse cx="28" cy="82" rx="14" ry="3.5" fill="#f0f0f0"/>
+  <rect x="19" y="67" width="26" height="4.5" rx="2.25" fill="#071810"/>
+  <rect x="28" y="66" width="8" height="6.5" rx="1.5" fill="#0d3a18"/>
+  <!-- 腰带扣 — 符文 -->
+  <circle cx="32" cy="69.5" r="2.5" fill="none" stroke="rgba(100,220,140,0.6)" stroke-width="0.8"/>
+  <circle cx="32" cy="69.5" r="1" fill="rgba(100,220,140,0.4)"/>
+  <!-- 领口 -->
+  <ellipse cx="32" cy="59" rx="9" ry="3" fill="rgba(220,255,230,0.7)"/>
+  <!-- 袖子 -->
+  <path d="M19 64 Q10 68 9 75" stroke="url(#bodyG)" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <circle cx="9" cy="76" r="4.5" fill="#8ec87a"/>
+  <path d="M45 64 Q54 68 55 75" stroke="url(#bodyG)" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <circle cx="55" cy="76" r="4.5" fill="#8ec87a"/>
+  <!-- 下摆 -->
+  <ellipse cx="32" cy="90" rx="15" ry="3.5" fill="rgba(220,255,230,0.6)"/>
   <!-- 靴子 -->
-  <ellipse cx="20" cy="85" rx="6" ry="3" fill="#1a3a22"/>
-  <ellipse cx="36" cy="85" rx="6" ry="3" fill="#1a3a22"/>
+  <ellipse cx="23" cy="94" rx="7" ry="3" fill="#071810"/>
+  <ellipse cx="41" cy="94" rx="7" ry="3" fill="#071810"/>
+  <!-- 靴子高光 -->
+  <path d="M19 93 Q23 91.5 27 93" stroke="rgba(80,160,100,0.3)" stroke-width="0.8" fill="none"/>
+  <path d="M37 93 Q41 91.5 45 93" stroke="rgba(80,160,100,0.3)" stroke-width="0.8" fill="none"/>
 </svg>
 </div>
 
@@ -552,33 +581,50 @@ setInterval(spawnFirefly,2000);for(let i=0;i<6;i++)setTimeout(spawnFirefly,i*600
 
 draw();
 
-// 绿老头跟随鼠标
+// 绿精灵跟随鼠标
 const elder=document.getElementById('elder');
 let ex=100,ey=300,tx=100,ty=300;
 elder.style.left=ex+'px';elder.style.top=ey+'px';
 
 document.addEventListener('mousemove',function(e){
-  tx=e.clientX-30;ty=e.clientY-80;
+  tx=e.clientX-32;ty=e.clientY-90;
+  // 魔法粒子尾迹
+  if(Math.random()>0.55){
+    const p=document.createElement('div');p.className='elder-magic';
+    const size=Math.random()*6+3;
+    p.style.cssText=`left:${ex+28}px;top:${ey+70}px;width:${size}px;height:${size}px;background:rgba(${Math.random()>0.5?'100,255,150':'180,255,200'},${Math.random()*0.6+0.3});box-shadow:0 0 ${size*2}px rgba(80,220,120,0.6);`;
+    const angle=Math.random()*Math.PI*2,dist=20+Math.random()*40;
+    p.style.setProperty('--mx',Math.cos(angle)*dist+'px');
+    p.style.setProperty('--my',(Math.sin(angle)*dist+10)+'px');
+    document.body.appendChild(p);setTimeout(()=>p.remove(),1200);
+  }
 });
 
-// 平滑跟随
 setInterval(()=>{
   ex+=(tx-ex)*0.08;ey+=(ty-ey)*0.08;
   elder.style.left=Math.round(ex)+'px';elder.style.top=Math.round(ey)+'px';
 },16);
 
-// 点击屏幕时老头做敲击动作
 document.addEventListener('click',function(e){
   if(e.target.closest('.btn,.bowl,.release-btn,.release-input,input[type=range],.breath-wrap'))return;
   elder.querySelector('svg').classList.remove('elder-tap');
   void elder.querySelector('svg').offsetWidth;
   elder.querySelector('svg').classList.add('elder-tap');
+  // 点击时爆发魔法粒子
+  for(let i=0;i<8;i++){
+    const p=document.createElement('div');p.className='elder-magic';
+    const size=Math.random()*8+4;
+    p.style.cssText=`left:${ex+28}px;top:${ey+50}px;width:${size}px;height:${size}px;background:rgba(120,255,160,${Math.random()*0.5+0.4});box-shadow:0 0 ${size*3}px rgba(80,220,120,0.8);animation-duration:${0.8+Math.random()*0.6}s;`;
+    const angle=(i/8)*Math.PI*2,dist=30+Math.random()*50;
+    p.style.setProperty('--mx',Math.cos(angle)*dist+'px');
+    p.style.setProperty('--my',Math.sin(angle)*dist+'px');
+    document.body.appendChild(p);setTimeout(()=>p.remove(),1400);
+  }
 });
 
-// 随机眨眼
 function blink(){
   const eyes=elder.querySelectorAll('#eye-l,#eye-r');
-  eyes.forEach(e=>{e.classList.add('elder-blink');setTimeout(()=>e.classList.remove('elder-blink'),150);});
+  eyes.forEach(e=>{e.classList.add('elder-blink');setTimeout(()=>e.classList.remove('elder-blink'),180);});
   setTimeout(blink,2000+Math.random()*4000);
 }
 setTimeout(blink,1500);
