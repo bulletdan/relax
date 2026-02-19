@@ -2,313 +2,418 @@
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>放松一下</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=Inter:wght@200;300&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>放空 · Relax</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;font-weight:300;background:#06080e;color:#e2d9c8;overflow-x:hidden;user-select:none;cursor:default;}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-.bg-fixed{position:fixed;inset:0;z-index:0;background:linear-gradient(160deg,#06080e 0%,#0c1022 45%,#12102a 100%);}
-.glow{position:fixed;border-radius:50%;filter:blur(100px);z-index:1;pointer-events:none;}
-.g1{width:600px;height:600px;background:#2e2d6e;opacity:0.1;top:-20%;left:-15%;animation:gfloat 18s ease-in-out infinite;}
-.g2{width:400px;height:400px;background:#5a2e10;opacity:0.09;bottom:-15%;right:-10%;animation:gfloat 22s ease-in-out infinite reverse;}
-@keyframes gfloat{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-30px)}}
+  body {
+    background: #0a0a12;
+    color: #fff;
+    font-family: -apple-system, 'PingFang SC', sans-serif;
+    overflow-x: hidden;
+  }
 
-.aurora{position:fixed;top:0;left:0;right:0;height:45%;z-index:1;pointer-events:none;overflow:hidden;}
-.ab{position:absolute;width:200%;height:140px;border-radius:50%;filter:blur(55px) saturate(0.65);opacity:0;animation:aDrift linear infinite;}
-.ab:nth-child(1){background:linear-gradient(90deg,transparent,rgba(40,160,100,0.09),rgba(60,140,180,0.1),transparent);top:10%;left:-50%;animation-duration:22s;}
-.ab:nth-child(2){background:linear-gradient(90deg,transparent,rgba(100,60,180,0.07),rgba(40,140,160,0.08),transparent);top:25%;left:-50%;animation-duration:28s;animation-delay:-10s;}
-@keyframes aDrift{0%{transform:translateX(0) skewY(-3deg);opacity:0}15%{opacity:1}85%{opacity:1}100%{transform:translateX(60%) skewY(3deg);opacity:0}}
+  section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
 
-.stars{position:fixed;inset:0;z-index:2;pointer-events:none;}
-.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 4s ease-in-out infinite alternate;}
-@keyframes twinkle{0%{opacity:0.08;transform:scale(0.8)}100%{opacity:0.7;transform:scale(1.2)}}
+  /* ── Section 1: 呼吸 ── */
+  #s1 { background: radial-gradient(ellipse at center, #0d1b2a 0%, #0a0a12 100%); }
 
-.moon{position:fixed;top:6%;right:7%;z-index:3;width:52px;height:52px;border-radius:50%;background:radial-gradient(circle at 38% 38%,#fff8e8,#e8d89a 50%,#c8b870);box-shadow:0 0 24px rgba(240,220,140,0.2);animation:mfloat 18s ease-in-out infinite;}
-@keyframes mfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  .breath-circle {
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(100,180,255,0.3) 0%, rgba(50,100,200,0.1) 60%, transparent 100%);
+    border: 1px solid rgba(100,180,255,0.4);
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
 
-.meteor{position:fixed;z-index:2;pointer-events:none;width:2px;background:linear-gradient(to bottom,rgba(255,255,255,0.8),transparent);animation:meteorFall linear infinite;opacity:0;}
-@keyframes meteorFall{0%{transform:translate(0,0) rotate(-45deg);opacity:0}4%{opacity:1}18%{opacity:0;transform:translate(-300px,300px) rotate(-45deg)}100%{opacity:0}}
+  .breath-circle::before, .breath-circle::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(100,180,255,0.2);
+  }
+  .breath-circle::before { width: 260px; height: 260px; }
+  .breath-circle::after  { width: 320px; height: 320px; }
 
-/* 滚动容器 */
-.scroll-wrap{position:relative;z-index:10;}
-.panel{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;position:relative;}
-.divider{width:1px;height:60px;background:linear-gradient(to bottom,transparent,rgba(226,217,200,0.1),transparent);margin:0 auto;}
+  .breath-text {
+    font-size: 14px;
+    letter-spacing: 4px;
+    color: rgba(150,200,255,0.8);
+    text-transform: uppercase;
+  }
 
-/* 通用文字 */
-.label{font-size:0.55rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(226,217,200,0.3);}
-.serif{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;}
-.hint{font-size:0.52rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(226,217,200,0.18);}
+  .s1-title {
+    position: absolute;
+    top: 15%;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 200;
+    letter-spacing: 12px;
+    color: rgba(255,255,255,0.85);
+    text-align: center;
+  }
 
-/* 第1屏 */
-.p1-quote{font-size:clamp(1.4rem,3vw,2rem);text-align:center;max-width:480px;line-height:2.2;letter-spacing:0.04em;margin:32px 0;}
-.scroll-arrow{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0.28;animation:arrowBob 2s ease-in-out infinite;}
-.scroll-arrow span{display:block;width:1px;height:28px;background:rgba(226,217,200,0.4);}
-.scroll-arrow i{width:6px;height:6px;border-right:1px solid rgba(226,217,200,0.4);border-bottom:1px solid rgba(226,217,200,0.4);transform:rotate(45deg);}
-@keyframes arrowBob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+  .s1-sub {
+    position: absolute;
+    bottom: 18%;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.3);
+  }
 
-/* 第2屏：呼吸 */
-.breath-orb{width:110px;height:110px;border-radius:50%;border:1px solid rgba(226,217,200,0.15);display:flex;align-items:center;justify-content:center;margin:40px 0 32px;transition:transform 4s ease-in-out,border-color 4s ease-in-out,box-shadow 4s ease-in-out;}
-.breath-orb.inhale{transform:scale(1.6);border-color:rgba(100,160,210,0.4);box-shadow:0 0 40px rgba(100,160,210,0.1);}
-.breath-core{width:10px;height:10px;border-radius:50%;background:rgba(226,217,200,0.4);transition:transform 4s ease-in-out,background 4s ease-in-out;}
-.breath-orb.inhale .breath-core{transform:scale(2.2);background:rgba(100,160,210,0.7);}
-.breath-word{font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(226,217,200,0.38);transition:color 0.5s;min-height:1.2em;}
+  /* ── Section 2: 星空 ── */
+  #s2 { background: #050510; }
 
-/* 第3屏：音乐 */
-.play-btn{width:56px;height:56px;border-radius:50%;border:1px solid rgba(226,217,200,0.2);background:rgba(255,255,255,0.03);backdrop-filter:blur(16px);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.4s ease;color:rgba(226,217,200,0.65);margin:36px 0 20px;}
-.play-btn:hover{border-color:rgba(226,217,200,0.38);background:rgba(255,255,255,0.07);transform:scale(1.06);}
-.play-btn.playing{border-color:rgba(130,100,210,0.45);box-shadow:0 0 24px rgba(130,100,210,0.12);}
-.play-btn svg{width:18px;height:18px;fill:currentColor;}
-.p3-sub{font-size:0.52rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(226,217,200,0.22);transition:color 0.4s;}
-.p3-sub.playing{color:rgba(226,217,200,0.45);}
+  #starCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+  }
 
-/* 绿精灵 */
-#elder{position:fixed;z-index:20;pointer-events:none;width:60px;height:90px;transition:transform 0.3s ease;}
-#elder svg{width:60px;height:90px;overflow:visible;filter:drop-shadow(0 0 6px rgba(74,222,128,0.18));}
-.elder-wave{animation:eWave 0.7s ease;}
-@keyframes eWave{0%{transform:rotate(0)}30%{transform:rotate(-15deg)}70%{transform:rotate(10deg)}100%{transform:rotate(0)}}
-.elder-stretch{animation:eStretch 1.4s ease;}
-@keyframes eStretch{0%,100%{transform:scaleY(1)}35%{transform:scaleY(1.06) translateY(-4px)}65%{transform:scaleY(0.97)}}
-.magic{position:fixed;z-index:19;pointer-events:none;border-radius:50%;animation:mFade 1.2s ease-out forwards;}
-@keyframes mFade{0%{opacity:0.7;transform:scale(0.1)}100%{opacity:0;transform:scale(1) translate(var(--mx),var(--my))}}
+  .s2-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
 
-.ripple{position:fixed;z-index:5;pointer-events:none;border:1px solid rgba(226,217,200,0.28);border-radius:50%;animation:ripOut 1.6s ease-out forwards;}
-@keyframes ripOut{0%{width:0;height:0;opacity:0.6}100%{width:260px;height:260px;opacity:0;margin-left:-130px;margin-top:-130px}}
+  .s2-title {
+    font-size: clamp(24px, 4vw, 44px);
+    font-weight: 100;
+    letter-spacing: 8px;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 20px;
+  }
 
-body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at center,transparent 40%,rgba(0,0,0,0.45) 100%);pointer-events:none;z-index:6;}
+  .s2-sub {
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: rgba(180,180,255,0.5);
+  }
 
-.reveal{opacity:0;transform:translateY(24px);}
+  /* ── Section 3: 波浪 ── */
+  #s3 { background: linear-gradient(180deg, #050510 0%, #001a2e 50%, #002a40 100%); }
 
-@media(max-width:600px){
-  .p1-quote{font-size:1.15rem;max-width:85vw;}
-  .moon{width:38px;height:38px;}
-}
+  #waveCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+  }
+
+  .s3-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .s3-title {
+    font-size: clamp(24px, 4vw, 44px);
+    font-weight: 100;
+    letter-spacing: 8px;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 20px;
+  }
+
+  .s3-sub {
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: rgba(100,200,255,0.5);
+  }
+
+  /* ── Section 4: 落叶 ── */
+  #s4 { background: linear-gradient(180deg, #0a1a0a 0%, #0d2010 100%); }
+
+  .leaf { position: absolute; font-size: 20px; opacity: 0; pointer-events: none; }
+
+  .s4-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .s4-title {
+    font-size: clamp(24px, 4vw, 44px);
+    font-weight: 100;
+    letter-spacing: 8px;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 20px;
+  }
+
+  .s4-sub {
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: rgba(150,220,150,0.5);
+  }
+
+  /* ── Section 5: 结尾 ── */
+  #s5 { background: radial-gradient(ellipse at center, #1a0a2e 0%, #0a0a12 100%); }
+
+  .s5-content { text-align: center; }
+
+  .s5-title {
+    font-size: clamp(32px, 6vw, 72px);
+    font-weight: 100;
+    letter-spacing: 16px;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 30px;
+  }
+
+  .s5-sub {
+    font-size: 15px;
+    letter-spacing: 4px;
+    color: rgba(200,150,255,0.5);
+    line-height: 2;
+  }
+
+  .glow-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(200,150,255,0.8);
+    margin: 40px auto 0;
+    box-shadow: 0 0 20px rgba(200,150,255,0.6);
+  }
+
+  /* scroll hint */
+  .scroll-hint {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.25);
+    z-index: 100;
+    transition: opacity 0.5s;
+  }
 </style>
 </head>
 <body>
 
-<div class="bg-fixed"></div>
-<div class="glow g1"></div><div class="glow g2"></div>
-<div class="aurora"><div class="ab"></div><div class="ab"></div></div>
-<div class="stars" id="stars"></div>
-<div class="moon"></div>
-<div class="meteor" style="top:4%;left:70%;height:80px;animation-duration:9s;animation-delay:0s"></div>
-<div class="meteor" style="top:8%;left:40%;height:65px;animation-duration:13s;animation-delay:4s"></div>
+<!-- Section 1: 呼吸 -->
+<section id="s1">
+  <div class="s1-title" id="s1Title">放　空</div>
+  <div class="breath-circle" id="breathCircle">
+    <span class="breath-text" id="breathText">呼吸</span>
+  </div>
+  <div class="s1-sub">向下滚动，开始放松</div>
+</section>
 
-<!-- 绿精灵 -->
-<div id="elder">
-<svg viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="skinG" cx="40%" cy="30%"><stop offset="0%" stop-color="#a7f3c0"/><stop offset="100%" stop-color="#2d8a52"/></radialGradient>
-    <linearGradient id="robeG" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1a2e1a"/><stop offset="100%" stop-color="#0a150a"/></linearGradient>
-    <filter id="eyeGlow"><feGaussianBlur stdDeviation="1.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-  </defs>
-  <path d="M10 32 L2 18 L16 28 Z" fill="#2d8a52"/>
-  <path d="M50 32 L58 18 L44 28 Z" fill="#2d8a52"/>
-  <path d="M10 32 L4 20 L15 29 Z" fill="#1a5c35" opacity="0.6"/>
-  <path d="M50 32 L56 20 L45 29 Z" fill="#1a5c35" opacity="0.6"/>
-  <ellipse cx="30" cy="34" rx="16" ry="15" fill="url(#skinG)"/>
-  <ellipse id="eye-l" cx="22" cy="32" rx="5" ry="6" fill="#0a1a0a" filter="url(#eyeGlow)"/>
-  <ellipse id="eye-r" cx="38" cy="32" rx="5" ry="6" fill="#0a1a0a" filter="url(#eyeGlow)"/>
-  <ellipse cx="22" cy="32" rx="3.5" ry="4.5" fill="#1a6b3a"/>
-  <ellipse cx="38" cy="32" rx="3.5" ry="4.5" fill="#1a6b3a"/>
-  <ellipse cx="22" cy="32" rx="2" ry="2.8" fill="#050f05"/>
-  <ellipse cx="38" cy="32" rx="2" ry="2.8" fill="#050f05"/>
-  <circle cx="23.5" cy="30" r="1.2" fill="rgba(180,255,200,0.9)"/>
-  <circle cx="39.5" cy="30" r="1.2" fill="rgba(180,255,200,0.9)"/>
-  <ellipse cx="30" cy="38" rx="2.5" ry="1.5" fill="#1a5c35" opacity="0.5"/>
-  <path d="M25 42 Q30 44.5 35 42" stroke="#1a4a2a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-  <path d="M16 48 Q12 50 11 58 L10 78 Q14 76 18 80 Q22 76 26 80 Q30 76 34 80 Q38 76 42 80 Q46 76 50 78 L49 58 Q48 50 44 48 Z" fill="url(#robeG)"/>
-  <path d="M22 52 L20 78" stroke="#2a3d2a" stroke-width="0.8" fill="none" opacity="0.5"/>
-  <path d="M30 50 L30 80" stroke="#2a3d2a" stroke-width="0.8" fill="none" opacity="0.5"/>
-  <path d="M38 52 L40 78" stroke="#2a3d2a" stroke-width="0.8" fill="none" opacity="0.5"/>
-  <path d="M16 52 Q8 58 6 66" stroke="#2d8a52" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <path d="M44 52 Q52 58 54 66" stroke="#2d8a52" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <circle cx="6" cy="67" r="4" fill="url(#skinG)"/>
-  <circle cx="54" cy="67" r="4" fill="url(#skinG)"/>
-</svg>
-</div>
+<!-- Section 2: 星空 -->
+<section id="s2">
+  <canvas id="starCanvas"></canvas>
+  <div class="s2-content" id="s2Content">
+    <div class="s2-title">你不需要做任何事</div>
+    <div class="s2-sub">只是存在，就已足够</div>
+  </div>
+</section>
 
-<div class="scroll-wrap">
+<!-- Section 3: 波浪 -->
+<section id="s3">
+  <canvas id="waveCanvas"></canvas>
+  <div class="s3-content" id="s3Content">
+    <div class="s3-title">让思绪随波流淌</div>
+    <div class="s3-sub">不必抓住，不必追逐</div>
+  </div>
+</section>
 
-  <!-- 第1屏：入场 -->
-  <section class="panel" id="p1">
-    <div class="label reveal" id="greeting"></div>
-    <div class="serif p1-quote reveal" id="quote"></div>
-    <div class="hint reveal">向下滚动，慢慢来</div>
-    <div class="scroll-arrow"><span></span><i></i></div>
-  </section>
+<!-- Section 4: 落叶 -->
+<section id="s4">
+  <div id="leavesContainer"></div>
+  <div class="s4-content" id="s4Content">
+    <div class="s4-title">放下，就是自由</div>
+    <div class="s4-sub">此刻，一切都好</div>
+  </div>
+</section>
 
-  <div class="divider"></div>
+<!-- Section 5: 结尾 -->
+<section id="s5">
+  <div class="s5-content" id="s5Content">
+    <div class="s5-title">宁　静</div>
+    <div class="s5-sub">你已经足够好了<br>此刻，好好休息</div>
+    <div class="glow-dot" id="glowDot"></div>
+  </div>
+</section>
 
-  <!-- 第2屏：呼吸 -->
-  <section class="panel" id="p2">
-    <div class="label reveal">跟着节奏，呼吸</div>
-    <div class="breath-orb reveal" id="breathOrb"><div class="breath-core"></div></div>
-    <div class="breath-word reveal" id="breathWord"></div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- 第3屏：音乐 -->
-  <section class="panel" id="p3">
-    <div class="serif reveal" style="font-size:clamp(1rem,2.5vw,1.3rem);color:rgba(226,217,200,0.5);letter-spacing:0.06em;">让雨声陪着你</div>
-    <button class="play-btn reveal" id="playBtn">
-      <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-    </button>
-    <div class="p3-sub reveal" id="p3sub">Rain · 自然白噪音</div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- 第4屏：结语 -->
-  <section class="panel" id="p4">
-    <div class="serif reveal" style="font-size:clamp(1.1rem,2.5vw,1.5rem);text-align:center;max-width:360px;line-height:2.2;color:rgba(226,217,200,0.65);margin-bottom:40px;">
-      不必向任何人解释你的疲惫，<br>休息本身就是答案。
-    </div>
-    <div class="hint reveal">— 你已经做得很好了 —</div>
-  </section>
-
-</div>
+<div class="scroll-hint" id="scrollHint">SCROLL</div>
 
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
-// 星星
-const starsEl = document.getElementById('stars');
-for (let i = 0; i < 160; i++) {
-  const s = document.createElement('div'); s.className = 'star';
-  const sz = Math.random() * 1.4 + 0.4;
-  s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;width:${sz}px;height:${sz}px;animation-delay:${Math.random()*6}s;animation-duration:${3+Math.random()*5}s`;
-  starsEl.appendChild(s);
+// ── 呼吸动画 ──
+const breathTl = gsap.timeline({ repeat: -1 });
+breathTl
+  .to('#breathCircle', { scale: 1.5, duration: 4, ease: 'sine.inOut' })
+  .to('#breathText', { opacity: 0.3, duration: 2, ease: 'sine.inOut' }, 0)
+  .to('#breathText', { opacity: 1, duration: 2, ease: 'sine.inOut' }, 2)
+  .to('#breathCircle', { scale: 1, duration: 4, ease: 'sine.inOut' });
+
+// S1 入场
+gsap.from('#s1Title', { opacity: 0, y: -30, duration: 1.5, ease: 'power2.out', delay: 0.3 });
+gsap.from('.s1-sub', { opacity: 0, duration: 2, delay: 1.2 });
+
+// 隐藏 scroll hint
+ScrollTrigger.create({
+  trigger: '#s2',
+  start: 'top 80%',
+  onEnter: () => gsap.to('#scrollHint', { opacity: 0, duration: 0.5 })
+});
+
+// ── S2 星空 ──
+const starCanvas = document.getElementById('starCanvas');
+const sCtx = starCanvas.getContext('2d');
+let stars = [];
+
+function resizeStar() {
+  starCanvas.width = starCanvas.offsetWidth;
+  starCanvas.height = starCanvas.offsetHeight;
+}
+resizeStar();
+window.addEventListener('resize', resizeStar);
+
+for (let i = 0; i < 200; i++) {
+  stars.push({
+    x: Math.random(), y: Math.random(),
+    r: Math.random() * 1.5 + 0.3,
+    a: Math.random(),
+    speed: Math.random() * 0.005 + 0.002
+  });
 }
 
-// 问候
-const h = new Date().getHours();
-document.getElementById('greeting').textContent =
-  h<6 ? '— 夜深了，辛苦了 —' : h<12 ? '— 早上好 —' : h<14 ? '— 中午好，记得休息 —' : h<18 ? '— 下午好 —' : '— 晚上好，放松一下 —';
+let starProgress = 0;
+function drawStars() {
+  const w = starCanvas.width, h = starCanvas.height;
+  sCtx.clearRect(0, 0, w, h);
+  stars.forEach(s => {
+    s.a += s.speed;
+    const alpha = (Math.sin(s.a) * 0.5 + 0.5) * starProgress;
+    sCtx.beginPath();
+    sCtx.arc(s.x * w, s.y * h, s.r, 0, Math.PI * 2);
+    sCtx.fillStyle = `rgba(200,210,255,${alpha})`;
+    sCtx.fill();
+  });
+  requestAnimationFrame(drawStars);
+}
+drawStars();
 
-// 诗句
-const quotes = [
-  "你已经做得很好了，\n允许自己休息一会儿。",
-  "深呼吸，\n这一刻只属于你。",
-  "慢慢来，\n比较快。",
-  "月亮也有看不见的一面，\n但它依然完整。",
-  "此刻的安静，\n是你给自己最好的礼物。"
-];
-const qi = Math.floor(Math.random() * quotes.length);
-document.getElementById('quote').innerHTML = quotes[qi].replace('\n', '<br><br>');
+ScrollTrigger.create({
+  trigger: '#s2', start: 'top 60%', end: 'bottom 40%',
+  onEnter: () => gsap.to({ v: starProgress }, { v: 1, duration: 2, onUpdate: function() { starProgress = this.targets()[0].v; } }),
+  onLeaveBack: () => gsap.to({ v: starProgress }, { v: 0, duration: 1, onUpdate: function() { starProgress = this.targets()[0].v; } })
+});
 
-// ScrollTrigger 入场动画
-gsap.utils.toArray('.reveal').forEach(el => {
+gsap.from('#s2Content', {
+  scrollTrigger: { trigger: '#s2', start: 'top 60%' },
+  opacity: 0, y: 40, duration: 1.5, ease: 'power2.out'
+});
+
+// ── S3 波浪 ──
+const waveCanvas = document.getElementById('waveCanvas');
+const wCtx = waveCanvas.getContext('2d');
+let waveOffset = 0;
+
+function resizeWave() {
+  waveCanvas.width = waveCanvas.offsetWidth;
+  waveCanvas.height = waveCanvas.offsetHeight;
+}
+resizeWave();
+window.addEventListener('resize', resizeWave);
+
+let waveAlpha = 0;
+function drawWaves() {
+  const w = waveCanvas.width, h = waveCanvas.height;
+  wCtx.clearRect(0, 0, w, h);
+  waveOffset += 0.008;
+
+  [
+    { amp: 40, freq: 0.008, phase: 0,    y: h * 0.55, color: `rgba(0,150,200,${waveAlpha * 0.15})` },
+    { amp: 30, freq: 0.012, phase: 1.5,  y: h * 0.60, color: `rgba(0,180,220,${waveAlpha * 0.12})` },
+    { amp: 50, freq: 0.006, phase: 3,    y: h * 0.65, color: `rgba(0,120,180,${waveAlpha * 0.18})` },
+  ].forEach(wave => {
+    wCtx.beginPath();
+    wCtx.moveTo(0, h);
+    for (let x = 0; x <= w; x += 4) {
+      const y = wave.y + Math.sin(x * wave.freq + waveOffset + wave.phase) * wave.amp;
+      wCtx.lineTo(x, y);
+    }
+    wCtx.lineTo(w, h);
+    wCtx.closePath();
+    wCtx.fillStyle = wave.color;
+    wCtx.fill();
+  });
+  requestAnimationFrame(drawWaves);
+}
+drawWaves();
+
+ScrollTrigger.create({
+  trigger: '#s3', start: 'top 60%', end: 'bottom 40%',
+  onEnter: () => gsap.to({ v: waveAlpha }, { v: 1, duration: 2, onUpdate: function() { waveAlpha = this.targets()[0].v; } }),
+  onLeaveBack: () => gsap.to({ v: waveAlpha }, { v: 0, duration: 1, onUpdate: function() { waveAlpha = this.targets()[0].v; } })
+});
+
+gsap.from('#s3Content', {
+  scrollTrigger: { trigger: '#s3', start: 'top 60%' },
+  opacity: 0, y: 40, duration: 1.5, ease: 'power2.out'
+});
+
+// ── S4 落叶 ──
+const leafEmojis = ['🍃', '🍂', '🍁', '🌿'];
+const container = document.getElementById('leavesContainer');
+
+function createLeaf() {
+  const el = document.createElement('div');
+  el.className = 'leaf';
+  el.textContent = leafEmojis[Math.floor(Math.random() * leafEmojis.length)];
+  el.style.left = Math.random() * 100 + 'vw';
+  el.style.top = '-40px';
+  el.style.fontSize = (16 + Math.random() * 16) + 'px';
+  container.appendChild(el);
+
   gsap.to(el, {
-    opacity: 1, y: 0, duration: 1.2, ease: 'power2.out',
-    scrollTrigger: { trigger: el, start: 'top 82%', toggleActions: 'play none none none' }
+    y: window.innerHeight + 60,
+    x: (Math.random() - 0.5) * 200,
+    rotation: Math.random() * 720 - 360,
+    opacity: 0.7,
+    duration: 6 + Math.random() * 4,
+    ease: 'none',
+    onComplete: () => el.remove()
   });
-});
-// 第1屏直接入场
-gsap.to('#p1 .reveal', { opacity: 1, y: 0, duration: 1.4, ease: 'power2.out', stagger: 0.25, delay: 0.4 });
-
-// 涟漪
-document.addEventListener('click', e => {
-  if (e.target.closest('.play-btn')) return;
-  const r = document.createElement('div'); r.className = 'ripple';
-  r.style.left = e.clientX + 'px'; r.style.top = e.clientY + 'px';
-  document.body.appendChild(r); setTimeout(() => r.remove(), 1600);
-});
-
-// 音乐
-const audio = new Audio('vem_click-rain-sound-188158.mp3');
-audio.loop = true; audio.volume = 0.45;
-const playBtn = document.getElementById('playBtn');
-const playIcon = document.getElementById('playIcon');
-const p3sub = document.getElementById('p3sub');
-const pausePath = 'M6 19h4V5H6v14zm8-14v14h4V5h-4z';
-const playPath = 'M8 5v14l11-7z';
-let playing = false;
-playBtn.addEventListener('click', e => {
-  e.stopPropagation();
-  playing = !playing;
-  if (playing) audio.play(); else audio.pause();
-  playIcon.querySelector('path').setAttribute('d', playing ? pausePath : playPath);
-  playBtn.classList.toggle('playing', playing);
-  p3sub.classList.toggle('playing', playing);
-});
-document.addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); playBtn.click(); } });
-
-// 呼吸引导 — 第2屏进入时启动
-const breathOrb = document.getElementById('breathOrb');
-const breathWord = document.getElementById('breathWord');
-const steps = [{t:'吸气',c:'inhale',d:4000},{t:'屏息',c:'inhale',d:1500},{t:'呼气',c:'',d:4000},{t:'停留',c:'',d:1500}];
-let bi = 0;
-function nextBreath() {
-  const s = steps[bi];
-  breathWord.textContent = s.t;
-  breathOrb.className = 'breath-orb ' + (s.c || '');
-  bi = (bi + 1) % steps.length;
-  setTimeout(nextBreath, s.d);
+  gsap.to(el, { opacity: 0.7, duration: 0.5 });
 }
-ScrollTrigger.create({ trigger: '#p2', start: 'top 60%', once: true, onEnter: () => setTimeout(nextBreath, 600) });
 
-// 绿精灵漫游
-const elder = document.getElementById('elder');
-let ex = 120, ey = 200, tx = 120, ty = 200, flipped = false, isIdle = false, idleTimer = null;
-elder.style.left = ex + 'px'; elder.style.top = ey + 'px';
-
-function newTarget() {
-  const m = 80;
-  tx = m + Math.random() * (window.innerWidth - m * 2);
-  ty = m + Math.random() * (window.innerHeight - m * 2);
-  isIdle = false; clearTimeout(idleTimer);
-  idleTimer = setTimeout(doIdle, 3000 + Math.random() * 4000);
-}
-function doIdle() {
-  isIdle = true;
-  const svg = elder.querySelector('svg');
-  const cls = Math.random() > 0.5 ? 'elder-stretch' : 'elder-wave';
-  svg.classList.remove('elder-stretch', 'elder-wave'); void svg.offsetWidth; svg.classList.add(cls);
-  setTimeout(newTarget, 2000 + Math.random() * 3000);
-}
-newTarget();
-setInterval(() => {
-  if (isIdle) return;
-  const dx = tx - ex, dy = ty - ey, dist = Math.sqrt(dx*dx + dy*dy);
-  if (dist < 4) { newTarget(); return; }
-  if (dx < -2 && !flipped) { flipped = true; elder.style.transform = 'scaleX(-1)'; }
-  else if (dx > 2 && flipped) { flipped = false; elder.style.transform = 'scaleX(1)'; }
-  ex += dx * 0.03; ey += dy * 0.03;
-  elder.style.left = Math.round(ex) + 'px'; elder.style.top = Math.round(ey) + 'px';
-}, 16);
-
-document.addEventListener('click', e => {
-  if (e.target.closest('.play-btn')) return;
-  if (e.clientX < ex + 30) { flipped = true; elder.style.transform = 'scaleX(-1)'; }
-  else { flipped = false; elder.style.transform = 'scaleX(1)'; }
-  const svg = elder.querySelector('svg');
-  svg.classList.remove('elder-wave', 'elder-stretch'); void svg.offsetWidth; svg.classList.add('elder-wave');
-  for (let i = 0; i < 5; i++) {
-    const p = document.createElement('div'); p.className = 'magic';
-    const sz = 3 + Math.random() * 4;
-    p.style.cssText = `left:${ex+30}px;top:${ey+45}px;width:${sz}px;height:${sz}px;background:rgba(74,222,128,${0.4+Math.random()*0.4});box-shadow:0 0 ${sz*2}px rgba(34,197,94,0.5);`;
-    const a = (i / 5) * Math.PI * 2, d = 20 + Math.random() * 28;
-    p.style.setProperty('--mx', Math.cos(a) * d + 'px');
-    p.style.setProperty('--my', Math.sin(a) * d + 'px');
-    document.body.appendChild(p); setTimeout(() => p.remove(), 1200);
-  }
+let leafInterval = null;
+ScrollTrigger.create({
+  trigger: '#s4', start: 'top 60%', end: 'bottom 40%',
+  onEnter: () => { leafInterval = setInterval(createLeaf, 400); },
+  onLeave: () => { clearInterval(leafInterval); },
+  onEnterBack: () => { leafInterval = setInterval(createLeaf, 400); },
+  onLeaveBack: () => { clearInterval(leafInterval); }
 });
 
-function blink() {
-  elder.querySelectorAll('#eye-l,#eye-r').forEach(el => {
-    const orig = el.getAttribute('ry');
-    el.setAttribute('ry', '0.3');
-    setTimeout(() => el.setAttribute('ry', orig), 120);
-  });
-  setTimeout(blink, 2500 + Math.random() * 4000);
-}
-setTimeout(blink, 2000);
+gsap.from('#s4Content', {
+  scrollTrigger: { trigger: '#s4', start: 'top 60%' },
+  opacity: 0, y: 40, duration: 1.5, ease: 'power2.out'
+});
+
+// ── S5 结尾 ──
+gsap.from('#s5Content', {
+  scrollTrigger: { trigger: '#s5', start: 'top 60%' },
+  opacity: 0, scale: 0.95, duration: 2, ease: 'power2.out'
+});
+
+gsap.to('#glowDot', {
+  scale: 2, opacity: 0.3, duration: 2,
+  repeat: -1, yoyo: true, ease: 'sine.inOut',
+  scrollTrigger: { trigger: '#s5', start: 'top 60%' }
+});
 </script>
 </body>
 </html>
