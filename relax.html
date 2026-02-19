@@ -199,8 +199,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
 .hint{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);font-size:0.65rem;opacity:0;letter-spacing:2px;color:rgba(232,220,200,0.2);animation:fadeUp 2s ease forwards 3s;z-index:10;}
 
 /* 绿老头 */
-#elder{position:fixed;z-index:20;pointer-events:none;transition:left 0.15s ease-out,top 0.15s ease-out;width:60px;height:80px;bottom:auto;}
-#elder svg{width:60px;height:80px;overflow:visible;}
+#elder{position:fixed;z-index:20;pointer-events:none;transition:left 0.12s ease-out,top 0.12s ease-out;width:56px;height:88px;bottom:auto;}
+#elder svg{width:56px;height:88px;overflow:visible;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.4));}
 .elder-tap{animation:elderTap 0.4s ease;}
 @keyframes elderTap{0%{transform:rotate(0deg)}25%{transform:rotate(-15deg)}75%{transform:rotate(10deg)}100%{transform:rotate(0deg)}}
 .elder-blink{animation:elderBlink 0.15s ease;}
@@ -289,35 +289,46 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
 
 <!-- 绿老头 -->
 <div id="elder">
-<svg viewBox="0 0 60 80" xmlns="http://www.w3.org/2000/svg">
-  <!-- 身体 -->
-  <ellipse cx="30" cy="62" rx="14" ry="16" fill="#4a8c4a"/>
-  <!-- 胡子/长袍下摆 -->
-  <ellipse cx="30" cy="74" rx="16" ry="8" fill="#3a7a3a"/>
-  <!-- 头 -->
-  <circle cx="30" cy="28" r="16" fill="#5aaa5a"/>
+<svg viewBox="0 0 56 88" xmlns="http://www.w3.org/2000/svg">
   <!-- 帽子 -->
-  <ellipse cx="30" cy="14" rx="18" ry="5" fill="#2d6e2d"/>
-  <rect x="22" y="4" width="16" height="12" rx="3" fill="#2d6e2d"/>
-  <!-- 帽子装饰 -->
-  <circle cx="30" cy="4" r="3" fill="#ffdd44"/>
+  <path d="M28 2 L38 26 H18 Z" fill="#2a7a3a"/>
+  <rect x="15" y="24" width="26" height="6" rx="3" fill="#1d5c2a"/>
+  <!-- 帽球 -->
+  <circle cx="28" cy="3" r="3.5" fill="#f0f0f0"/>
+  <!-- 帽子腰带 -->
+  <rect x="15" y="26" width="26" height="2" rx="1" fill="#f5c842"/>
+  <!-- 脸 -->
+  <ellipse cx="28" cy="38" rx="13" ry="12" fill="#f5d5a0"/>
   <!-- 眼睛 -->
-  <ellipse id="eye-l" cx="24" cy="28" rx="3" ry="3.5" fill="#fff"/>
-  <circle cx="24.8" cy="28.5" r="1.8" fill="#1a1a1a"/>
-  <ellipse id="eye-r" cx="36" cy="28" rx="3" ry="3.5" fill="#fff"/>
-  <circle cx="36.8" cy="28.5" r="1.8" fill="#1a1a1a"/>
+  <ellipse id="eye-l" cx="23" cy="36" rx="2.5" ry="2.8" fill="#fff"/>
+  <circle cx="23.6" cy="36.5" r="1.5" fill="#2a2a2a"/>
+  <ellipse id="eye-r" cx="33" cy="36" rx="2.5" ry="2.8" fill="#fff"/>
+  <circle cx="33.6" cy="36.5" r="1.5" fill="#2a2a2a"/>
   <!-- 眉毛 -->
-  <path d="M21 23 Q24 21 27 23" stroke="#2d6e2d" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-  <path d="M33 23 Q36 21 39 23" stroke="#2d6e2d" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M20.5 32.5 Q23 31 25.5 32.5" stroke="#8a6a3a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M30.5 32.5 Q33 31 35.5 32.5" stroke="#8a6a3a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <!-- 鼻子 -->
+  <ellipse cx="28" cy="40" rx="2.5" ry="2" fill="#e8b888"/>
   <!-- 胡须 -->
-  <path d="M22 36 Q30 40 38 36" stroke="#e8e8e8" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <path d="M24 39 Q30 44 36 39" stroke="#e8e8e8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-  <path d="M26 42 Q30 46 34 42" stroke="#e8e8e8" stroke-width="1" fill="none" stroke-linecap="round"/>
-  <!-- 拐杖 -->
-  <line x1="46" y1="50" x2="52" y2="78" stroke="#8b6914" stroke-width="3" stroke-linecap="round"/>
-  <path d="M46 50 Q40 42 46 36" stroke="#8b6914" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <!-- 手 -->
-  <circle cx="44" cy="50" r="4" fill="#5aaa5a"/>
+  <path d="M17 44 Q28 50 39 44" fill="#f0f0f0"/>
+  <path d="M19 44 Q28 52 37 44" fill="#e8e8e8"/>
+  <!-- 身体 -->
+  <path d="M16 56 Q14 72 14 82 H42 Q42 72 40 56 Q34 52 28 52 Q22 52 16 56Z" fill="#2a7a3a"/>
+  <!-- 腰带 -->
+  <rect x="16" y="60" width="24" height="5" rx="2.5" fill="#1d5c2a"/>
+  <rect x="25" y="59" width="6" height="7" rx="1.5" fill="#f5c842"/>
+  <!-- 领口白毛 -->
+  <ellipse cx="28" cy="54" rx="8" ry="3" fill="#f0f0f0"/>
+  <!-- 袖子/手 -->
+  <path d="M16 58 Q8 62 7 68" stroke="#2a7a3a" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <circle cx="7" cy="69" r="4" fill="#f5d5a0"/>
+  <path d="M40 58 Q48 62 49 68" stroke="#2a7a3a" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <circle cx="49" cy="69" r="4" fill="#f5d5a0"/>
+  <!-- 下摆白毛 -->
+  <ellipse cx="28" cy="82" rx="14" ry="3.5" fill="#f0f0f0"/>
+  <!-- 靴子 -->
+  <ellipse cx="20" cy="85" rx="6" ry="3" fill="#1a3a22"/>
+  <ellipse cx="36" cy="85" rx="6" ry="3" fill="#1a3a22"/>
 </svg>
 </div>
 
