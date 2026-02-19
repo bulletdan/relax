@@ -198,6 +198,14 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
 
 .hint{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);font-size:0.65rem;opacity:0;letter-spacing:2px;color:rgba(232,220,200,0.2);animation:fadeUp 2s ease forwards 3s;z-index:10;}
 
+/* 绿老头 */
+#elder{position:fixed;z-index:20;pointer-events:none;transition:left 0.15s ease-out,top 0.15s ease-out;width:60px;height:80px;bottom:auto;}
+#elder svg{width:60px;height:80px;overflow:visible;}
+.elder-tap{animation:elderTap 0.4s ease;}
+@keyframes elderTap{0%{transform:rotate(0deg)}25%{transform:rotate(-15deg)}75%{transform:rotate(10deg)}100%{transform:rotate(0deg)}}
+.elder-blink{animation:elderBlink 0.15s ease;}
+@keyframes elderBlink{0%,100%{transform:scaleY(1)}50%{transform:scaleY(0.1)}}
+
 .firefly{
   position:fixed;z-index:4;pointer-events:none;border-radius:50%;
   width:4px;height:4px;background:rgba(255,240,180,0.7);
@@ -278,6 +286,40 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
 </div>
 
 <div class="hint">轻触任意处，泛起涟漪</div>
+
+<!-- 绿老头 -->
+<div id="elder">
+<svg viewBox="0 0 60 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- 身体 -->
+  <ellipse cx="30" cy="62" rx="14" ry="16" fill="#4a8c4a"/>
+  <!-- 胡子/长袍下摆 -->
+  <ellipse cx="30" cy="74" rx="16" ry="8" fill="#3a7a3a"/>
+  <!-- 头 -->
+  <circle cx="30" cy="28" r="16" fill="#5aaa5a"/>
+  <!-- 帽子 -->
+  <ellipse cx="30" cy="14" rx="18" ry="5" fill="#2d6e2d"/>
+  <rect x="22" y="4" width="16" height="12" rx="3" fill="#2d6e2d"/>
+  <!-- 帽子装饰 -->
+  <circle cx="30" cy="4" r="3" fill="#ffdd44"/>
+  <!-- 眼睛 -->
+  <ellipse id="eye-l" cx="24" cy="28" rx="3" ry="3.5" fill="#fff"/>
+  <circle cx="24.8" cy="28.5" r="1.8" fill="#1a1a1a"/>
+  <ellipse id="eye-r" cx="36" cy="28" rx="3" ry="3.5" fill="#fff"/>
+  <circle cx="36.8" cy="28.5" r="1.8" fill="#1a1a1a"/>
+  <!-- 眉毛 -->
+  <path d="M21 23 Q24 21 27 23" stroke="#2d6e2d" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M33 23 Q36 21 39 23" stroke="#2d6e2d" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- 胡须 -->
+  <path d="M22 36 Q30 40 38 36" stroke="#e8e8e8" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M24 39 Q30 44 36 39" stroke="#e8e8e8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M26 42 Q30 46 34 42" stroke="#e8e8e8" stroke-width="1" fill="none" stroke-linecap="round"/>
+  <!-- 拐杖 -->
+  <line x1="46" y1="50" x2="52" y2="78" stroke="#8b6914" stroke-width="3" stroke-linecap="round"/>
+  <path d="M46 50 Q40 42 46 36" stroke="#8b6914" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- 手 -->
+  <circle cx="44" cy="50" r="4" fill="#5aaa5a"/>
+</svg>
+</div>
 
 <script>
 // 银河
@@ -498,6 +540,37 @@ function spawnFirefly(){
 setInterval(spawnFirefly,2000);for(let i=0;i<6;i++)setTimeout(spawnFirefly,i*600);
 
 draw();
+
+// 绿老头跟随鼠标
+const elder=document.getElementById('elder');
+let ex=100,ey=300,tx=100,ty=300;
+elder.style.left=ex+'px';elder.style.top=ey+'px';
+
+document.addEventListener('mousemove',function(e){
+  tx=e.clientX-30;ty=e.clientY-80;
+});
+
+// 平滑跟随
+setInterval(()=>{
+  ex+=(tx-ex)*0.08;ey+=(ty-ey)*0.08;
+  elder.style.left=Math.round(ex)+'px';elder.style.top=Math.round(ey)+'px';
+},16);
+
+// 点击屏幕时老头做敲击动作
+document.addEventListener('click',function(e){
+  if(e.target.closest('.btn,.bowl,.release-btn,.release-input,input[type=range],.breath-wrap'))return;
+  elder.querySelector('svg').classList.remove('elder-tap');
+  void elder.querySelector('svg').offsetWidth;
+  elder.querySelector('svg').classList.add('elder-tap');
+});
+
+// 随机眨眼
+function blink(){
+  const eyes=elder.querySelectorAll('#eye-l,#eye-r');
+  eyes.forEach(e=>{e.classList.add('elder-blink');setTimeout(()=>e.classList.remove('elder-blink'),150);});
+  setTimeout(blink,2000+Math.random()*4000);
+}
+setTimeout(blink,1500);
 </script>
 </body>
 </html>
