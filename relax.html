@@ -142,14 +142,14 @@ body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse
 .breath-text{font-size:0.55rem;letter-spacing:0.18em;color:rgba(226,217,200,0.3);transition:color 0.5s;}
 
 /* 绿精灵 */
-#elder{position:fixed;z-index:20;pointer-events:none;width:56px;height:80px;transition:transform 0.3s ease;}
-#elder svg{width:56px;height:80px;overflow:visible;filter:drop-shadow(0 0 12px rgba(74,222,128,0.35)) drop-shadow(0 0 32px rgba(34,197,94,0.15));}
-.elder-wave{animation:elderWave 0.6s ease;}
-@keyframes elderWave{0%{transform:rotate(0)}25%{transform:rotate(-12deg) scale(1.05)}75%{transform:rotate(8deg)}100%{transform:rotate(0) scale(1)}}
-.elder-stretch{animation:elderStretch 1.2s ease;}
-@keyframes elderStretch{0%,100%{transform:scaleY(1)}40%{transform:scaleY(1.08) translateY(-3px)}70%{transform:scaleY(0.96)}}
-.magic{position:fixed;z-index:19;pointer-events:none;border-radius:50%;animation:magicFade 1s ease-out forwards;}
-@keyframes magicFade{0%{opacity:0.9;transform:scale(0.2)}100%{opacity:0;transform:scale(1) translate(var(--mx),var(--my))}}
+#elder{position:fixed;z-index:20;pointer-events:none;width:60px;height:90px;transition:transform 0.3s ease;}
+#elder svg{width:60px;height:90px;overflow:visible;filter:drop-shadow(0 0 8px rgba(74,222,128,0.2)) drop-shadow(0 0 24px rgba(34,197,94,0.08));}
+.elder-wave{animation:elderWave 0.7s ease;}
+@keyframes elderWave{0%{transform:rotate(0)}30%{transform:rotate(-15deg)}70%{transform:rotate(10deg)}100%{transform:rotate(0)}}
+.elder-stretch{animation:elderStretch 1.4s ease;}
+@keyframes elderStretch{0%,100%{transform:scaleY(1)}35%{transform:scaleY(1.06) translateY(-4px)}65%{transform:scaleY(0.97)}}
+.magic{position:fixed;z-index:19;pointer-events:none;border-radius:50%;animation:magicFade 1.2s ease-out forwards;}
+@keyframes magicFade{0%{opacity:0.8;transform:scale(0.1)}100%{opacity:0;transform:scale(1) translate(var(--mx),var(--my))}}
 
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
@@ -202,42 +202,51 @@ body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse
 
 <!-- 绿精灵 -->
 <div id="elder">
-<svg viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <radialGradient id="skinG" cx="42%" cy="32%"><stop offset="0%" stop-color="#bbf7d0"/><stop offset="100%" stop-color="#4ade80"/></radialGradient>
-    <radialGradient id="bodyG" cx="35%" cy="25%"><stop offset="0%" stop-color="#16a34a"/><stop offset="100%" stop-color="#052e16"/></radialGradient>
-    <radialGradient id="hatG" cx="35%" cy="20%"><stop offset="0%" stop-color="#15803d"/><stop offset="100%" stop-color="#052e16"/></radialGradient>
+    <radialGradient id="skinG" cx="40%" cy="30%"><stop offset="0%" stop-color="#a7f3c0"/><stop offset="100%" stop-color="#2d8a52"/></radialGradient>
+    <linearGradient id="robeG" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1a2e1a"/><stop offset="100%" stop-color="#0a150a"/></linearGradient>
+    <filter id="eyeGlow"><feGaussianBlur stdDeviation="1.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
   </defs>
-  <!-- 帽子 -->
-  <path d="M28 2 Q30 0 32 2 L38 22 Q28 20 18 22 Z" fill="url(#hatG)"/>
-  <ellipse cx="28" cy="22" rx="11" ry="3.5" fill="#14532d"/>
-  <circle cx="28" cy="2.5" r="2.5" fill="#dcfce7" opacity="0.9"/>
-  <!-- 脸 -->
-  <ellipse cx="28" cy="36" rx="13" ry="13" fill="url(#skinG)"/>
-  <!-- 眼睛 -->
-  <ellipse id="eye-l" cx="22" cy="34" rx="2.8" ry="3" fill="#052e16"/>
-  <ellipse id="eye-r" cx="34" cy="34" rx="2.8" ry="3" fill="#052e16"/>
-  <circle cx="22.8" cy="33" r="1" fill="rgba(255,255,255,0.85)"/>
-  <circle cx="34.8" cy="33" r="1" fill="rgba(255,255,255,0.85)"/>
-  <!-- 腮红 -->
-  <ellipse cx="17" cy="38" rx="3.5" ry="2" fill="rgba(74,222,128,0.3)"/>
-  <ellipse cx="39" cy="38" rx="3.5" ry="2" fill="rgba(74,222,128,0.3)"/>
-  <!-- 嘴 -->
-  <path d="M23 41 Q28 45 33 41" stroke="#052e16" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-  <!-- 身体 -->
-  <rect x="17" y="48" width="22" height="22" rx="8" fill="url(#bodyG)"/>
-  <!-- 腰带 -->
-  <rect x="17" y="57" width="22" height="4" rx="2" fill="#052e16"/>
-  <rect x="25" y="57.5" width="6" height="3" rx="1.5" fill="#4ade80" opacity="0.6"/>
-  <!-- 手 -->
-  <circle cx="12" cy="56" r="5" fill="url(#skinG)"/>
-  <circle cx="44" cy="56" r="5" fill="url(#skinG)"/>
-  <!-- 腿 -->
-  <rect x="19" y="68" width="7" height="10" rx="3.5" fill="#052e16"/>
-  <rect x="30" y="68" width="7" height="10" rx="3.5" fill="#052e16"/>
-  <!-- 鞋 -->
-  <ellipse cx="22.5" cy="78" rx="6" ry="3" fill="#14532d"/>
-  <ellipse cx="33.5" cy="78" rx="6" ry="3" fill="#14532d"/>
+  <!-- 尖耳朵 -->
+  <path d="M10 32 L2 18 L16 28 Z" fill="#2d8a52"/>
+  <path d="M50 32 L58 18 L44 28 Z" fill="#2d8a52"/>
+  <path d="M10 32 L4 20 L15 29 Z" fill="#1a5c35" opacity="0.6"/>
+  <path d="M50 32 L56 20 L45 29 Z" fill="#1a5c35" opacity="0.6"/>
+  <!-- 头 -->
+  <ellipse cx="30" cy="34" rx="16" ry="15" fill="url(#skinG)"/>
+  <!-- 大眼睛 — 多比标志 -->
+  <ellipse id="eye-l" cx="22" cy="32" rx="5" ry="6" fill="#0a1a0a" filter="url(#eyeGlow)"/>
+  <ellipse id="eye-r" cx="38" cy="32" rx="5" ry="6" fill="#0a1a0a" filter="url(#eyeGlow)"/>
+  <!-- 眼睛绿色虹膜 -->
+  <ellipse cx="22" cy="32" rx="3.5" ry="4.5" fill="#1a6b3a"/>
+  <ellipse cx="38" cy="32" rx="3.5" ry="4.5" fill="#1a6b3a"/>
+  <!-- 瞳孔 -->
+  <ellipse cx="22" cy="32" rx="2" ry="2.8" fill="#050f05"/>
+  <ellipse cx="38" cy="32" rx="2" ry="2.8" fill="#050f05"/>
+  <!-- 眼睛高光 -->
+  <circle cx="23.5" cy="30" r="1.2" fill="rgba(180,255,200,0.9)"/>
+  <circle cx="39.5" cy="30" r="1.2" fill="rgba(180,255,200,0.9)"/>
+  <!-- 鼻子 -->
+  <ellipse cx="30" cy="38" rx="2.5" ry="1.5" fill="#1a5c35" opacity="0.5"/>
+  <!-- 嘴 — 细线，神秘感 -->
+  <path d="M25 42 Q30 44.5 35 42" stroke="#1a4a2a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <!-- 破旧长袍 — 不规则下摆 -->
+  <path d="M16 48 Q12 50 11 58 L10 78 Q14 76 18 80 Q22 76 26 80 Q30 76 34 80 Q38 76 42 80 Q46 76 50 78 L49 58 Q48 50 44 48 Z" fill="url(#robeG)"/>
+  <!-- 长袍纹理/褶皱 -->
+  <path d="M22 52 L20 78" stroke="#2a3d2a" stroke-width="0.8" fill="none" opacity="0.6"/>
+  <path d="M30 50 L30 80" stroke="#2a3d2a" stroke-width="0.8" fill="none" opacity="0.6"/>
+  <path d="M38 52 L40 78" stroke="#2a3d2a" stroke-width="0.8" fill="none" opacity="0.6"/>
+  <!-- 不规则下摆 -->
+  <path d="M10 78 Q14 74 18 80 Q22 74 26 80 Q30 74 34 80 Q38 74 42 80 Q46 74 50 78" stroke="#1a2e1a" stroke-width="1" fill="none"/>
+  <!-- 细长手臂 -->
+  <path d="M16 52 Q8 58 6 66" stroke="#2d8a52" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M44 52 Q52 58 54 66" stroke="#2d8a52" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- 手 — 细长手指 -->
+  <circle cx="6" cy="67" r="4" fill="url(#skinG)"/>
+  <circle cx="54" cy="67" r="4" fill="url(#skinG)"/>
+  <path d="M3 65 L1 61 M5 64 L4 60 M7 64 L7 60 M9 65 L11 61" stroke="#2d8a52" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M51 65 L49 61 M53 64 L52 60 M55 64 L55 60 M57 65 L59 61" stroke="#2d8a52" stroke-width="1.2" stroke-linecap="round"/>
 </svg>
 </div>
 
@@ -335,6 +344,7 @@ setTimeout(nextBreath,3000);
 // 绿精灵 — 自由漫游
 const elder=document.getElementById('elder');
 let ex=120,ey=200,tx=120,ty=200,flipped=false;
+const elderW=60,elderH=90;
 let idleTimer=null,isIdle=false;
 
 elder.style.left=ex+'px';elder.style.top=ey+'px';
@@ -394,7 +404,7 @@ document.addEventListener('click',e=>{
   for(let i=0;i<5;i++){
     const p=document.createElement('div');p.className='magic';
     const sz=3+Math.random()*4;
-    p.style.cssText=`left:${ex+28}px;top:${ey+30}px;width:${sz}px;height:${sz}px;background:rgba(74,222,128,${0.5+Math.random()*0.4});box-shadow:0 0 ${sz*2}px rgba(34,197,94,0.6);`;
+    p.style.cssText=`left:${ex+elderW/2}px;top:${ey+elderH/2}px;width:${sz}px;height:${sz}px;background:rgba(74,222,128,${0.5+Math.random()*0.4});box-shadow:0 0 ${sz*2}px rgba(34,197,94,0.6);`;
     const a=(i/5)*Math.PI*2,d=20+Math.random()*30;
     p.style.setProperty('--mx',Math.cos(a)*d+'px');
     p.style.setProperty('--my',Math.sin(a)*d+'px');
