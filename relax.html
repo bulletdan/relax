@@ -4,10 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 <title>INFJ 放松空间</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Georgia',serif;background:#08080f;color:#e8dcc8;
+body{font-family:'Inter',sans-serif;font-weight:300;background:#08080f;color:#e8dcc8;
   height:100vh;overflow:hidden;cursor:default;user-select:none;}
+body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at center,transparent 40%,rgba(0,0,0,0.45) 100%);pointer-events:none;z-index:6;}
 
 .bg{
   position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;
@@ -46,16 +49,16 @@ body{font-family:'Georgia',serif;background:#08080f;color:#e8dcc8;
   animation:auroraDrift linear infinite;
 }
 .aurora-band:nth-child(1){
-  background:linear-gradient(90deg,transparent,rgba(60,180,120,0.07),rgba(80,160,200,0.09),transparent);
-  top:10%;left:-50%;animation-duration:18s;animation-delay:0s;
+  background:linear-gradient(90deg,transparent,rgba(60,180,120,0.09),rgba(80,160,200,0.12),transparent);
+  top:10%;left:-50%;animation-duration:18s;animation-delay:0s;filter:blur(50px) saturate(0.8);
 }
 .aurora-band:nth-child(2){
-  background:linear-gradient(90deg,transparent,rgba(120,80,200,0.07),rgba(60,160,180,0.08),transparent);
-  top:25%;left:-50%;animation-duration:24s;animation-delay:-8s;
+  background:linear-gradient(90deg,transparent,rgba(120,80,200,0.09),rgba(60,160,180,0.1),transparent);
+  top:25%;left:-50%;animation-duration:24s;animation-delay:-8s;filter:blur(55px) saturate(0.8);
 }
 .aurora-band:nth-child(3){
-  background:linear-gradient(90deg,transparent,rgba(80,200,160,0.05),rgba(100,100,220,0.07),transparent);
-  top:5%;left:-50%;animation-duration:30s;animation-delay:-15s;
+  background:linear-gradient(90deg,transparent,rgba(80,200,160,0.07),rgba(100,100,220,0.09),transparent);
+  top:5%;left:-50%;animation-duration:30s;animation-delay:-15s;filter:blur(60px) saturate(0.8);
 }
 @keyframes auroraDrift{
   0%{transform:translateX(0) skewY(-3deg);opacity:0;}
@@ -101,12 +104,12 @@ body{font-family:'Georgia',serif;background:#08080f;color:#e8dcc8;
 
 .content{
   position:relative;z-index:10;height:100vh;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;
 }
 .greeting{
   position:fixed;top:28px;left:50%;z-index:10;
-  font-size:0.85rem;letter-spacing:3px;
-  color:rgba(232,220,200,0.7);
+  font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;
+  color:rgba(232,220,200,0.5);
   opacity:0;animation:greetFade 2s ease forwards 0.3s;
 }
 @keyframes greetFade{
@@ -114,10 +117,11 @@ body{font-family:'Georgia',serif;background:#08080f;color:#e8dcc8;
   to{opacity:1;translate:-50% 0}
 }
 .quote{
-  font-size:1.5rem;text-align:center;max-width:480px;
-  line-height:2;letter-spacing:2px;cursor:pointer;
+  font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;
+  font-size:1.55rem;text-align:center;max-width:460px;
+  line-height:2.1;letter-spacing:0.04em;cursor:pointer;
   opacity:0;animation:fadeUp 2.5s ease forwards 0.5s;
-  text-shadow:0 0 30px rgba(232,220,200,0.15);
+  text-shadow:0 0 40px rgba(232,220,200,0.12);
   transition:opacity 0.6s ease;
 }
 .quote.fading{opacity:0 !important;transform:translateY(10px)}
@@ -126,13 +130,17 @@ body{font-family:'Georgia',serif;background:#08080f;color:#e8dcc8;
 .quote-hint{font-size:0.6rem;opacity:0.25;letter-spacing:2px;margin-top:4px;}
 
 .btn{
-  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
-  color:#e8dcc8;padding:12px 28px;border-radius:30px;
-  cursor:pointer;font-size:0.95rem;letter-spacing:1px;
-  transition:all 0.5s ease;backdrop-filter:blur(10px);
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);
+  color:#e8dcc8;padding:14px 22px;border-radius:12px;
+  cursor:pointer;letter-spacing:0.12em;
+  transition:all 0.4s ease;backdrop-filter:blur(12px);
+  display:flex;flex-direction:column;align-items:flex-start;gap:4px;
+  min-width:100px;
 }
-.btn:hover{background:rgba(255,255,255,0.1);border-color:rgba(232,220,200,0.3);box-shadow:0 0 25px rgba(232,220,200,0.08);transform:translateY(-2px);}
-.btn.active{background:rgba(232,220,200,0.1);border-color:rgba(232,220,200,0.4);box-shadow:0 0 40px rgba(232,220,200,0.1);}
+.btn .btn-label{font-size:0.75rem;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:rgba(232,220,200,0.9);}
+.btn .btn-sub{font-size:0.6rem;letter-spacing:0.1em;color:rgba(232,220,200,0.35);}
+.btn:hover{background:rgba(255,255,255,0.07);border-color:rgba(232,220,200,0.25);box-shadow:0 0 20px rgba(232,220,200,0.06);transform:translateY(-2px);}
+.btn.active{background:rgba(147,112,219,0.15);border-color:rgba(147,112,219,0.45);box-shadow:0 0 30px rgba(147,112,219,0.18),inset 0 1px 0 rgba(255,255,255,0.08);}
 
 /* 呼吸圆 */
 .breath-wrap{
@@ -163,40 +171,43 @@ body{font-family:'Georgia',serif;background:#08080f;color:#e8dcc8;
 </head>
 <body>
 <style>
-.bowl-wrap{opacity:0;animation:fadeUp 2s ease forwards 1.8s;display:flex;flex-direction:column;align-items:center;gap:10px;}
+.bowl-wrap{opacity:0;animation:fadeUp 2s ease forwards 1.8s;display:flex;flex-direction:column;align-items:center;gap:8px;}
 .bowl{
-  width:80px;height:80px;border-radius:50%;cursor:pointer;
+  width:72px;height:72px;border-radius:50%;cursor:pointer;
   background:radial-gradient(circle at 35% 35%,#c9a96e,#6b5a3e 70%,#3a2f20);
-  box-shadow:0 0 0 rgba(201,169,110,0);transition:box-shadow 0.3s;display:flex;align-items:center;justify-content:center;font-size:1.6rem;
+  box-shadow:0 0 0 rgba(201,169,110,0);transition:box-shadow 0.3s;display:flex;align-items:center;justify-content:center;
 }
-.bowl:hover{box-shadow:0 0 40px rgba(201,169,110,0.25)}
+.bowl:hover{box-shadow:0 0 40px rgba(201,169,110,0.2)}
 .bowl.ring{animation:bowlRing 1.5s ease-out}
 @keyframes bowlRing{0%{box-shadow:0 0 0 0 rgba(201,169,110,0.5)}100%{box-shadow:0 0 0 80px rgba(201,169,110,0)}}
-.bowl-label{font-size:0.7rem;opacity:0.4;letter-spacing:1px}
+.bowl-label{font-size:0.6rem;opacity:0.3;letter-spacing:0.18em;text-transform:uppercase;}
 
-.release-wrap{opacity:0;animation:fadeUp 2s ease forwards 2.2s;display:flex;flex-direction:column;align-items:center;gap:12px;}
+.release-wrap{opacity:0;animation:fadeUp 2s ease forwards 2.2s;display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;max-width:300px;}
+.release-label{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,220,200,0.3);align-self:flex-start;}
 .release-input{
-  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);
-  border-radius:20px;padding:10px 20px;color:#e8dcc8;font-size:0.9rem;width:280px;
-  outline:none;font-family:'Georgia',serif;letter-spacing:1px;text-align:center;transition:all 0.4s;
+  background:transparent;border:none;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  padding:10px 0;color:#e8dcc8;font-size:0.85rem;width:100%;
+  outline:none;font-family:'Inter',sans-serif;font-weight:300;letter-spacing:0.04em;
+  transition:border-color 0.4s;
 }
-.release-input::placeholder{color:rgba(232,220,200,0.3)}
-.release-input:focus{border-color:rgba(232,220,200,0.3);box-shadow:0 0 20px rgba(232,220,200,0.06)}
+.release-input::placeholder{color:rgba(232,220,200,0.25);font-style:italic;}
+.release-input:focus{border-bottom-color:rgba(147,112,219,0.5);}
 .release-btn{
   background:none;border:1px solid rgba(255,255,255,0.1);
-  color:rgba(232,220,200,0.5);padding:8px 24px;border-radius:20px;
-  cursor:pointer;font-size:0.8rem;letter-spacing:2px;transition:all 0.4s;
+  color:rgba(232,220,200,0.45);padding:8px 28px;border-radius:20px;
+  cursor:pointer;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;transition:all 0.4s;
 }
-.release-btn:hover{color:#e8dcc8;border-color:rgba(232,220,200,0.3)}
+.release-btn:hover{color:#e8dcc8;border-color:rgba(232,220,200,0.3);box-shadow:0 0 15px rgba(232,220,200,0.05)}
 
 .particle{position:fixed;z-index:20;pointer-events:none;color:#e8dcc8;font-size:0.85rem;opacity:1;animation:particleFly 2.5s ease-out forwards;}
 @keyframes particleFly{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0.2)}}
 
 .vol-wrap{display:flex;align-items:center;gap:10px;opacity:0;animation:fadeUp 2s ease forwards 1.5s;}
-input[type=range]{-webkit-appearance:none;width:140px;height:3px;background:rgba(255,255,255,0.1);border-radius:2px;outline:none;}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;background:#e8dcc8;border-radius:50%;cursor:pointer;box-shadow:0 0 10px rgba(232,220,200,0.3);}
+input[type=range]{-webkit-appearance:none;width:120px;height:1px;background:rgba(255,255,255,0.12);border-radius:1px;outline:none;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:10px;background:rgba(232,220,200,0.85);border-radius:50%;cursor:pointer;box-shadow:0 0 8px rgba(147,112,219,0.5);}
 
-.hint{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);font-size:0.65rem;opacity:0;letter-spacing:2px;color:rgba(232,220,200,0.2);animation:fadeUp 2s ease forwards 3s;z-index:10;}
+.hint{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);font-size:0.6rem;opacity:0;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,220,200,0.18);animation:fadeUp 2s ease forwards 3s;z-index:10;}
 
 /* 绿精灵 */
 #elder{position:fixed;z-index:20;pointer-events:none;width:64px;height:100px;}
@@ -260,22 +271,31 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
   <div class="quote" id="quote"></div>
   <div class="quote-hint">轻触文字换一句</div>
   <div class="bowl-wrap">
-    <div class="bowl" id="bowl">🔔</div>
+    <div class="bowl" id="bowl"></div>
     <div class="bowl-label">轻触颂钵</div>
   </div>
-  <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp 2s ease forwards 1.5s">
-    <button class="btn" data-src="vem_click-rain-sound-188158.mp3">🌧️ 雨声</button>
-    <button class="btn" data-src="22.mp3">🌙 晚安 Lo-Fi</button>
-    <button class="btn" data-src="lofi.mp3">🎵 Lo-Fi</button>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp 2s ease forwards 1.5s">
+    <button class="btn" data-src="vem_click-rain-sound-188158.mp3">
+      <span class="btn-label">Rain</span>
+      <span class="btn-sub">自然白噪音</span>
+    </button>
+    <button class="btn" data-src="22.mp3">
+      <span class="btn-label">Night</span>
+      <span class="btn-sub">晚安 Lo-Fi</span>
+    </button>
+    <button class="btn" data-src="lofi.mp3">
+      <span class="btn-label">Lo-Fi</span>
+      <span class="btn-sub">轻音乐</span>
+    </button>
   </div>
   <div class="vol-wrap">
-    <span style="font-size:0.7rem;opacity:0.4">🔈</span>
+    <span style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;opacity:0.3">Vol</span>
     <input type="range" id="vol" min="0" max="1" step="0.05" value="0.5">
-    <span style="font-size:0.7rem;opacity:0.4">🔊</span>
   </div>
   <div class="release-wrap">
-    <input class="release-input" id="releaseInput" type="text" placeholder="写下你想放下的事..." maxlength="50">
-    <button class="release-btn" id="releaseBtn">✦ 释 放 ✦</button>
+    <span class="release-label">Release</span>
+    <input class="release-input" id="releaseInput" type="text" placeholder="写下你想放下的事…" maxlength="50">
+    <button class="release-btn" id="releaseBtn">释 放</button>
   </div>
 </div>
 
